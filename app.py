@@ -43,10 +43,10 @@ app.add_middleware(
 # ═══════════════════════════════════════════════════════════
 # ⚙️ SETTINGS — SUPER FLASH
 # ═══════════════════════════════════════════════════════════
-MAX_CONCURRENT  = 5000
-BATCH_CHUNK     = 1000
-REQUEST_TIMEOUT = 9
-CONNECT_TIMEOUT = 10
+MAX_CONCURRENT  = 3000
+BATCH_CHUNK     = 750
+REQUEST_TIMEOUT = 4
+CONNECT_TIMEOUT = 2
 
 OTP_KEYWORDS = (
     "success", "sent", "otp", "message", "ok", "true",
